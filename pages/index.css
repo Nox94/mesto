@@ -24,12 +24,13 @@
 @import url(../blocks/profile/__wrapper/profile__wrapper.css);
 @import url(../blocks/profile/__wrapper-fullscreen/profile__wrapper-fullscreen.css);
 @import url(../blocks/profile/__wrapper-for-rows/profile__wrapper-for-rows.css);
-@import url();
-@import url();
-@import url();
-@import url();
-@import url();
-@import url();
+/*elements*/
+@import url(../blocks/elements/elements.css);
+@import url(../blocks/elements/__card-img/elements__card-img.css);
+@import url(../blocks/elements/__card/elements__card.css);
+@import url(../blocks/elements/__card-heading/elements__card-heading.css);
+@import url(../blocks/elements/__like-button/elements__like-button.css);
+@import url(../blocks/elements/__wrapper/elements__wrapper.css);
 @import url();
 @import url();
 @import url();
