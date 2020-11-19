@@ -1,0 +1,17 @@
+.profile__subheading {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  color: #ffffff;
+  height: fit-content;
+  margin: 0;
+}
+
+@media screen and (min-width: 900px) {
+  .profile__subheading {
+    font-size: 18px;
+    line-height: 22px;
+  }
+}

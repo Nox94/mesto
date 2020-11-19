@@ -12,16 +12,18 @@
 @import url(../blocks/header/__logo/_theme/header__logo_theme_dark.css);
 /*outline*/
 @import url(../blocks/outline/outline.css);
-@import url();
-@import url();
-@import url();
-@import url();
-@import url();
-@import url();
-@import url();
-@import url();
-@import url();
-@import url();
+
+/*profile*/
+@import url(../blocks/profile/profile.css);
+@import url(../blocks/profile/__heading/profile__heading.css);
+@import url(../blocks/profile/__subheading/profile__subheading.css);
+@import url(../blocks/profile/__avatar/profile__avatar.css);
+@import url(../blocks/profile/__button-add/profile__button-add.css);
+@import url(../blocks/profile/__button-edit-icon/profile__button-edit-icon.css);
+@import url(../blocks/profile/__button-edit/profile__button-edit.css);
+@import url(../blocks/profile/__wrapper/profile__wrapper.css);
+@import url(../blocks/profile/__wrapper-fullscreen/profile__wrapper-fullscreen.css);
+@import url(../blocks/profile/__wrapper-for-rows/profile__wrapper-for-rows.css);
 @import url();
 @import url();
 @import url();

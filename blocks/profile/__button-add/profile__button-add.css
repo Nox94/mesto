@@ -1,0 +1,33 @@
+.profile__button-add {
+  width: 282px;
+  height: 50px;
+  border: 2px solid #ffffff;
+  box-sizing: border-box;
+  border-radius: 2px;
+  background-color: transparent;
+  color: #fff;
+  font-size: 32px;
+  text-align: center;
+}
+
+@media screen and (min-width: 600px) {
+  .profile__button-add {
+    width: 250px;
+    height: 60px;
+  }
+}
+
+@media screen and (min-width: 750px) {
+  .profile__button-add {
+    width: 200px;
+    height: 50px;
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .profile__button-add {
+    font-size: 40px;
+    font-weight: 200;
+    width: 150px;
+  }
+}

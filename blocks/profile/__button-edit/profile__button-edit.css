@@ -1,0 +1,17 @@
+.profile__button-edit {
+  border: 1px solid #ffffff;
+  box-sizing: border-box;
+  border-radius: 0;
+  background-color: transparent;
+  cursor: pointer;
+  width: 18px;
+  height: 18px;
+  order: 2;
+}
+
+@media screen and (min-width: 750px) {
+  .profile__button-edit {
+    width: 24px;
+    height: 24px;
+  }
+}
