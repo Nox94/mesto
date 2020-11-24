@@ -9,10 +9,17 @@
   padding-left: 27px;
   padding-right: 27px;
   margin: 0 auto;
+  box-sizing: border-box;
 }
 
 @media screen and (min-width: 600px) {
   .header {
-    padding: 45px 0 0 0;
+    padding: 45px 20px 0;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .header {
+    padding: 45px 0 0;
   }
 }
