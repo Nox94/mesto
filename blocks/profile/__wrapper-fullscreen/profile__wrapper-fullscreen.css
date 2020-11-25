@@ -12,6 +12,7 @@
     margin: 0 12px 0 0;
     align-items: flex-start;
     flex-direction: row;
+    align-items: center;
   }
 }
 
@@ -23,8 +24,7 @@
 
 @media screen and (min-width: 900px) {
   .profile__wrapper-fullscreen {
-    max-width: 486px;
-    margin: 0 245px 0 0;
+    margin: 0;
     align-items: center;
   }
 }

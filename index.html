@@ -10,8 +10,8 @@
 
 <body class="page">
   <!--header-->
-  <header class="header outline">
-    <img class="header__logo header__logo_theme_dark outline" src="./images/logo.svg">
+  <header class="header">
+    <img class="header__logo header__logo_theme_dark" src="./images/logo.svg">
     <div class="header__line"></div>
   </header>
   <!--profile-->
@@ -21,7 +21,7 @@
       <div class="profile__wrapper-for-rows outline">
         <div class="profile__wrapper outline">
           <!--для того, чтобы можно было вместе позиционировать кнопку редактирования профиля и строку с заголовком-->
-          <button class="profile__button-edit outline"></button>
+          <button class="profile__button-edit"></button>
           <h1 class="profile__heading outline">Жак-Ив Кусто</h1>
         </div>
         <p class="profile__subheading outline">Исследователь океана</p>
@@ -30,65 +30,65 @@
     <button type="button" class="profile__button-add outline">+</button>
   </section>
   <!--elements-->
-  <section class="elements outline">
-    <div class="elements__card outline">
-      <img class="elements__card-img outline" src="./images/dombai.jpg" alt="Заснеженные горы.">
-      <div class="elements__wrapper outline">
-        <h2 class="elements__card-heading outline">Домбай</h2>
-        <button class="elements__like-button outline" type="button"></button>
+  <section class="elements">
+    <div class="elements__card">
+      <img class="elements__card-img" src="./images/dombai.jpg" alt="Заснеженные горы.">
+      <div class="elements__wrapper">
+        <h2 class="elements__card-heading">Домбай</h2>
+        <button class="elements__like-button" type="button"></button>
       </div>
     </div>
-    <div class="elements__card outline">
-      <img class="elements__card-img outline" src="./images/elbrus.jpg" alt="Гора Эльбрус.">
-      <div class="elements__wrapper outline">
-        <h2 class="elements__card-heading outline">Эльбрус</h2>
-        <button class="elements__like-button outline" type="button"></button>
+    <div class="elements__card">
+      <img class="elements__card-img" src="./images/elbrus.jpg" alt="Гора Эльбрус.">
+      <div class="elements__wrapper">
+        <h2 class="elements__card-heading">Эльбрус</h2>
+        <button class="elements__like-button" type="button"></button>
       </div>
     </div>
-    <div class="elements__card outline">
-      <img class="elements__card-img outline" src="./images/karachaevsk.jpg" alt="Карачаевск.">
-      <div class="elements__wrapper outline">
-        <h2 class="elements__card-heading outline">Карачаевск</h2>
-        <button class="elements__like-button outline" type="button"></button>
+    <div class="elements__card">
+      <img class="elements__card-img" src="./images/karachaevsk.jpg" alt="Карачаевск.">
+      <div class="elements__wrapper">
+        <h2 class="elements__card-heading">Карачаевск</h2>
+        <button class="elements__like-button" type="button"></button>
       </div>
     </div>
-    <div class="elements__card outline">
-      <img class="elements__card-img outline" src="./images/pyatigorsk.jpg" alt="Природа Пятигорска.">
-      <div class="elements__wrapper outline">
-        <h2 class="elements__card-heading outline">Пятигорск</h2>
-        <button class="elements__like-button outline" type="button"></button>
+    <div class="elements__card">
+      <img class="elements__card-img" src="./images/pyatigorsk.jpg" alt="Природа Пятигорска.">
+      <div class="elements__wrapper">
+        <h2 class="elements__card-heading">Пятигорск</h2>
+        <button class="elements__like-button" type="button"></button>
       </div>
     </div>
-    <div class="elements__card outline">
-      <img class="elements__card-img outline" src="./images/sochi.jpg" alt="Морской пейзаж.">
-      <div class="elements__wrapper outline">
-        <h2 class="elements__card-heading outline">Сочи</h2>
-        <button class="elements__like-button outline" type="button"></button>
+    <div class="elements__card">
+      <img class="elements__card-img" src="./images/sochi.jpg" alt="Морской пейзаж.">
+      <div class="elements__wrapper">
+        <h2 class="elements__card-heading">Сочи</h2>
+        <button class="elements__like-button" type="button"></button>
       </div>
     </div>
-    <div class="elements__card outline">
-      <img class="elements__card-img outline" src="./images/arkhyz.jpg" alt="Канатная дорога в горах.">
-      <div class="elements__wrapper outline">
-        <h2 class="elements__card-heading outline">Архыз</h2>
-        <button class="elements__like-button outline" type="button"></button>
+    <div class="elements__card">
+      <img class="elements__card-img" src="./images/arkhyz.jpg" alt="Канатная дорога в горах.">
+      <div class="elements__wrapper">
+        <h2 class="elements__card-heading">Архыз</h2>
+        <button class="elements__like-button" type="button"></button>
       </div>
     </div>
   </section>
-  <footer class="footer outline">
-    <p class="footer__copyright outline">&COPY; 2020 Mesto Russia</p>
+  <footer class="footer">
+    <p class="footer__copyright">&COPY; 2020 Mesto Russia</p>
   </footer>
   <div class="popup popup_opened">
     <div class="popup__body">
       <div class="popup__content">
-        <a class="popup__close outline" hreh="#"></a>
+        <a class="popup__close" hreh="#"></a>
         <h2 class="popup__heading">Редактировать профиль</h2>
         <form class="popup__form" action="#">
           <fieldset class="popup__form-fieldset">
-          <input class="popup__form-row" type="text" name="Имя" value="Жак-Ив Кусто">
-          <input class="popup__form-row" type="text" name="О себе" value="Исследователь океана">
-        </fieldset>
+            <input class="popup__form-row" type="text" name="Имя" value="Жак-Ив Кусто">
+            <input class="popup__form-row" type="text" name="О себе" value="Исследователь океана">
+          </fieldset>
         </form>
-        <button class="popup__save outline" type="submit">Сохранить</button>
+        <button class="popup__save" type="submit">Сохранить</button>
       </div>
     </div>
   </div>

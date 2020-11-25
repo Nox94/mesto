@@ -8,12 +8,11 @@
   color: #fff;
   font-size: 32px;
   text-align: center;
-  
 }
 
 @media screen and (min-width: 600px) {
   .profile__button-add {
-    width: 200px;
+    width: 162px;
     height: 50px;
   }
 }

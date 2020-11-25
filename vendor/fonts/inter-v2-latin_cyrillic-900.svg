@@ -1,5 +1,5 @@
 <?xml version="1.0" standalone="no"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!DOCTYPE svg PUBLIC"-//W3C//DTD SVG 1.1//EN""http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg xmlns="http://www.w3.org/2000/svg">
 <defs >
 <font id="Inter" horiz-adv-x="1838" ><font-face
@@ -9,7 +9,7 @@
     ascent="2728"
     descent="-680"
     alphabetic="0" />
-<glyph unicode=" " horiz-adv-x="560" />
+<glyph unicode="" horiz-adv-x="560" />
 <glyph unicode="!" horiz-adv-x="1000" d="M780 2048L728 640H272L220 2048H780ZM500 -32Q384 -32 302 49T220 248Q219 362 301 443T500 524Q610 524 694 443T780 248Q779 170 740 107T637 6T500 -32Z" />
 <glyph unicode="&quot;" horiz-adv-x="1084" d="M460 2048V1220H100V2048H460ZM980 2048V1220H620V2048H980Z" />
 <glyph unicode="#" horiz-adv-x="1864" d="M924 0L1260 2048H1660L1324 0H924ZM16 468L84 868H1732L1664 468H16ZM204 0L540 2048H940L604 0H204ZM132 1180L200 1580H1848L1780 1180H132Z" />
