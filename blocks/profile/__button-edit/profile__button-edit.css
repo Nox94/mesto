@@ -12,6 +12,12 @@
   height: 18px;
   order: 2;
 }
+
+.profile__button-edit:hover {
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+
 @media screen and (min-width: 400px) {
   .profile__button-edit {
     width: 20px;

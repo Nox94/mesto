@@ -43,10 +43,10 @@
 @import url(../blocks/popup/__form/popup__form.css);
 @import url(../blocks/popup/__form-fieldset/popup__form-fieldset.css);
 @import url(../blocks/popup/__form-row/popup__form-row.css);
+@import url(../blocks/popup/__form-row/_type/popup__form-row_type_name.css);
+@import url(../blocks/popup/__form-row/_type/popup__form-row_type_about.css);
 @import url(../blocks/popup/__save/popup__save.css);
 
-@import url();
-@import url();
 @import url();
 @import url();
 @import url();

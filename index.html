@@ -15,19 +15,19 @@
     <div class="header__line"></div>
   </header>
   <!--profile-->
-  <section class="profile outline">
-    <div class="profile__wrapper-fullscreen outline">
-      <img class="profile__avatar outline" src="./images/kusto.png" alt="Жак-Ив Кусто.">
-      <div class="profile__wrapper-for-rows outline">
-        <div class="profile__wrapper outline">
+  <section class="profile">
+    <div class="profile__wrapper-fullscreen">
+      <img class="profile__avatar" src="./images/kusto.png" alt="Жак-Ив Кусто.">
+      <div class="profile__wrapper-for-rows">
+        <div class="profile__wrapper">
           <!--для того, чтобы можно было вместе позиционировать кнопку редактирования профиля и строку с заголовком-->
           <button class="profile__button-edit"></button>
-          <h1 class="profile__heading outline">Жак-Ив Кусто</h1>
+          <h1 class="profile__heading">Жак-Ив Кусто</h1>
         </div>
-        <p class="profile__subheading outline">Исследователь океана</p>
+        <p class="profile__subheading">Исследователь океана</p>
       </div>
     </div>
-    <button type="button" class="profile__button-add outline">+</button>
+    <button type="button" class="profile__button-add">+</button>
   </section>
   <!--elements-->
   <section class="elements">
@@ -84,8 +84,8 @@
         <h2 class="popup__heading">Редактировать профиль</h2>
         <form class="popup__form" action="#">
           <fieldset class="popup__form-fieldset">
-            <input class="popup__form-row" type="text" name="Имя" value="Жак-Ив Кусто">
-            <input class="popup__form-row" type="text" name="О себе" value="Исследователь океана">
+            <input class="popup__form-row popup__form-row_type_name" type="text" name="Имя" value="">
+            <input class="popup__form-row popup__form-row_type_about" type="text" name="О себе" value="">
           </fieldset>
         </form>
         <button class="popup__save" type="submit">Сохранить</button>

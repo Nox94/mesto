@@ -15,3 +15,8 @@
     margin: 0 0 40px 0;
   }
 }
+
+.header__logo_theme_dark:hover {
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
