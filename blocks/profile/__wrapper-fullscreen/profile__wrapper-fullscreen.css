@@ -25,6 +25,5 @@
 @media screen and (min-width: 900px) {
   .profile__wrapper-fullscreen {
     margin: 0;
-    align-items: center;
   }
 }
