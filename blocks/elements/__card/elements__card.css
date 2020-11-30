@@ -1,5 +1,4 @@
 .elements__card {
-  text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
   width: 282px;

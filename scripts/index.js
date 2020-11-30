@@ -21,6 +21,8 @@ Form.addEventListener('submit', FormNodeSubmitHandler);
 
 function handleProfileButtonEditClick() {
   Popup.classList.add('popup_opened');
+  FormFieldName.value = ProfileHeading.textContent;
+FormFieldAbout.value = ProfileSubheading.textContent;
 }
 // использую функцию handleProfileButtonEditClick, чтобы добавить модификатор _opened по клику пользователя на кнопку редактирования профиля
 function handlePopupCloseClick() {
@@ -32,8 +34,7 @@ function FormNodeSubmitHandler(evt) {
 }
 // понадобится для того, чтобы работала кнопка "сохранить"
 
-FormFieldName.value = ProfileHeading.textContent;
-FormFieldAbout.value = ProfileSubheading.textContent;
+
 // присвоила полям формы значения заголовка и подзаголовка со страницы
 
 
