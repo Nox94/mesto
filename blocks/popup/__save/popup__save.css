@@ -3,12 +3,6 @@
   max-width: 358px;
   background-color: #000;
   color: #fff;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 17px;
-  text-align: center;
-  padding: 14px 82px;
   border: 0;
   border-radius: 2px;
   cursor: pointer;
@@ -21,9 +15,13 @@
 
 @media screen and (min-width: 1024px) {
   .popup__save {
-    font-size: 18px;
-    line-height: 22px;
     padding: 14px 0 14px 0;
     margin: 0;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .popup__save {
+    width: 150px;
   }
 }
