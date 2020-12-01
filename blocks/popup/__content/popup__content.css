@@ -12,9 +12,33 @@
   box-sizing: border-box;
 }
 
+@media screen and (min-width: 450px) {
+  .popup__content {
+    max-width: 66vw;
+  }
+}
+
+@media screen and (min-width: 600px) {
+  .popup__content {
+    max-width: 53vw;
+  }
+}
+
+@media screen and (min-width: 750px) {
+  .popup__content {
+    max-width: 44vw;
+  }
+}
+
+@media screen and (min-width: 925px) {
+  .popup__content {
+    max-width: 40vw;
+  }
+}
+
 @media screen and (min-width: 1024px) {
   .popup__content {
-    padding: 34px;
+    padding: 34px 36px 37px;
     max-width: 430px;
   }
 }
