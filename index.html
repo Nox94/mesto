@@ -20,7 +20,7 @@
       <div class="profile__wrapper-for-rows">
         <div class="profile__wrapper">
           <!--для того, чтобы можно было вместе позиционировать кнопку редактирования профиля и строку с заголовком-->
-          <button class="profile__button-edit" aria-label="Редактировать"></button>
+          <button class="profile__button-edit" type="button" aria-label="Редактировать"></button>
           <h1 class="profile__heading">Жак-Ив Кусто</h1>
         </div>
         <p class="profile__subheading">Исследователь океана</p>
@@ -83,8 +83,8 @@
         <h2 class="popup__heading">Редактировать профиль</h2>
         <form class="popup__form" action="#" name="Form">
           <fieldset class="popup__form-fieldset">
-            <input class="popup__form-row popup__form-row_type_name" type="text" name="Имя" value="">
-            <input class="popup__form-row popup__form-row_type_about" type="text" name="О себе" value="">
+            <input class="popup__form-row popup__form-row_type_name" type="text" name="Name" value="" placeholder="Имя">
+            <input class="popup__form-row popup__form-row_type_about" type="text" name="About" value="" placeholder="О себе">
           </fieldset>
           <button class="popup__save" type="submit" aria-label="Сохранить">Сохранить</button>
         </form>

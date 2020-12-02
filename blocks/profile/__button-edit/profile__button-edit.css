@@ -1,6 +1,6 @@
 .profile__button-edit {
   box-sizing: border-box;
-  background-image: url(../../../images/Edit\ Button.svg);
+  background-image: url(../../../images/edit_button.svg);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -11,11 +11,11 @@
   width: 18px;
   height: 18px;
   order: 2;
+  transition: opacity 0.2s;
 }
 
 .profile__button-edit:hover {
   opacity: 0.6;
-  transition: opacity 0.2s;
 }
 
 @media screen and (min-width: 400px) {
