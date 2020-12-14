@@ -86,4 +86,3 @@ profileButtonEdit.addEventListener("click", openAnyPopup);
 // вешаю обработчик события на кнопку "закрыть", чтобы потом добавить реакцию на событие. функция handlePopupCloseClick
 form.addEventListener("submit", formSubmitHandler);
 // вешаю обработчик события на кнопку формы "сохранить", чтобы данные перезаписывались и попап закрывался. функция formSubmitHandler;
-console.log('ss');
