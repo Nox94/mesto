@@ -16,6 +16,12 @@ let buttonAdd = document.querySelector('.profile__button-add');
 let cardHeading = document.querySelector('.elements__card-heading');
 let cardImage = document.querySelector('.elements__card-img');
 
+//работа с карточками
+let cardTemplate = document.querySelector('#card-template').content; //получила шаблон карточки себе в переменную вместе с содержимым
+let cardElement = cardTemplate.cloneNode(true); // склонировала все содержимое шаблона карточки и сохранила в другую переменную (?)
+cardElement.querySelector('.elements__card-heading').textContent=''; //наполнение содержимым - название карточки
+cardElement.querySelector('.elements__card-img').src = ''; //наполнение содержимым - src адрес карточки
+
 //создала массив с данными карточек - заголовок и изображение
 const initialCards = [
   {
