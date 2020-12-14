@@ -15,14 +15,10 @@ let page = document.querySelector(".page");
 let buttonAdd = document.querySelector('.profile__button-add');
 let cardHeading = document.querySelector('.elements__card-heading');
 let cardImage = document.querySelector('.elements__card-img');
-
+let cardsContainer = document.querySelector('.elements');
 //работа с карточками
-let cardTemplate = document.querySelector('#card-template').content; //получила шаблон карточки себе в переменную вместе с содержимым
-let cardElement = cardTemplate.cloneNode(true); // склонировала все содержимое шаблона карточки и сохранила в другую переменную (?)
-cardElement.querySelector('.elements__card-heading').textContent=''; //наполнение содержимым - название карточки
-cardElement.querySelector('.elements__card-img').src = ''; //наполнение содержимым - src адрес карточки
 
-//создала массив с данными карточек - заголовок и изображение
+//создала массив с данными карточек - заголовок и изображение (и зачем???)
 const initialCards = [
   {
     name: "Домбай",
@@ -50,6 +46,25 @@ const initialCards = [
   },
 ];
 
+function renderElements() {
+  let cardsArray = initialCards.map(addCard);
+  cardsContainer.append(cardElement);
+}
+
+//ф-ция создания и добавления (?) карточки
+function addCard(cardHeading, cardImage) {
+  let cardTemplate = document.querySelector('#card-template').content;
+  //получила шаблон карточки себе в переменную вместе с содержимым
+  let cardElement = cardTemplate.cloneNode(true);
+  // склонировала все содержимое шаблона карточки и сохранила в другую переменную чтобы создавать новые карточки
+  cardElement.querySelector('.elements__card-heading').textContent = cardHeading.name;
+  //наполнение содержимым - название карточки
+  cardElement.querySelector('.elements__card-img').src = cardImage.link;
+  //наполнение содержимым - src адрес карточки
+  cardsContainer.prepend(cardElement);
+  //добавила карточку в начало контейнера
+  return cardElement;
+}
 //функция открытия попапов
 function openAnyPopup(event) {
   let tag = event.target;
@@ -83,12 +98,20 @@ function formSubmitHandler(evt) {
 }
 // отмена стандартной отправки формы на сервер, присвоение данных из инпутов странице и вызов функции для закрытия попапа
 
+// //ф-ция при нажатии на кнопку "создать"
+// function cardCreate(evt) {
+//   evt.preventDefault();
+//   cardHeading.textContent = formFieldHeading.value;
+//   cardImage.textContent = formFieldLink.value;
+//   popup.classList.remove('popup_opened');
+// }
+
+
 buttonAdd.addEventListener('click', openAnyPopup);
 page.addEventListener("click", closeAnyPopup);
 profileButtonEdit.addEventListener("click", openAnyPopup);
 // вешаю обработчик события на кнопку, чтобы потом добавить реакцию на событие. функция handleProfileButtonEditClick - аргумент? зачем?
 // использую функцию handleProfileButtonEditClick, чтобы добавить модификатор _opened по клику пользователя на кнопку редактирования профиля
-// popupClose.forEach() .addEventListener("click", handlePopupCloseClick);
 // вешаю обработчик события на кнопку "закрыть", чтобы потом добавить реакцию на событие. функция handlePopupCloseClick
 form.addEventListener("submit", formSubmitHandler);
 // вешаю обработчик события на кнопку формы "сохранить", чтобы данные перезаписывались и попап закрывался. функция formSubmitHandler;
