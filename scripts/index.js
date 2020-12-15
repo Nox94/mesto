@@ -7,9 +7,7 @@ const popupCards = document.querySelector(".popup-cards");
 const form = document.querySelectorAll(".popup__form");
 const formFieldName = document.querySelector(".popup__form-row_type_name");
 const formFieldAbout = document.querySelector(".popup__form-row_type_about");
-const formFieldHeading = document.querySelector(
-  ".popup__form-row_type_heading"
-);
+const formFieldHeading = document.querySelector(".popup__form-row_type_heading");
 const formFieldLink = document.querySelector(".popup__form-row_type_link");
 const profileHeading = document.querySelector(".profile__heading");
 const profileSubheading = document.querySelector(".profile__subheading");
@@ -22,6 +20,13 @@ const cardsContainer = document.querySelector(".elements");
 //получила шаблон карточки себе в переменную вместе с содержимым
 //работа с карточками
 
+// рендер массива для добавления первых шести карточек на страницу при загрузке
+function renderList() {
+  const listItems = initialCards.map(addCard);
+  console.log(listItems);
+  cardsContainer.append(...cardElement);
+}
+renderList();
 //ф-ция создания и добавления (?) карточки
 function addCard(cardHeading, cardImage) {
   const cardTemplate = document.querySelector("#card-template").content;

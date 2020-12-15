@@ -1,8 +1,8 @@
 //создала массив с данными карточек - заголовок и изображение (и зачем???)
 const initialCards = [
   {
-    name: "Домбай",
-    link: "./images/dombai.jpg",
+    name: "Архыз",
+    link: "./",
   },
   {
     name: "Эльбрус",
@@ -25,9 +25,3 @@ const initialCards = [
     link: "./images/arkhyz.jpg",
   },
 ];
-// рендер массива (???)
-function renderElements() {
-  const cardsArray = initialCards.map(addCard);
-  console.log(cardsArray);
-  cardsContainer.prepend(cardElement);
-}
