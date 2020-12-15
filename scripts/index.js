@@ -4,7 +4,7 @@ let profileButtonEdit = document.querySelector(".profile__button-edit");
 let popup = document.querySelector(".popup-profile");
 let popupClose = document.querySelector(".popup__close");
 let popupCards = document.querySelector(".popup-cards");
-let form = document.querySelector(".popup__form");
+let form = document.querySelectorAll(".popup__form");
 let formFieldName = document.querySelector(".popup__form-row_type_name");
 let formFieldAbout = document.querySelector(".popup__form-row_type_about");
 let formFieldHeading = document.querySelector('.popup__form-row_type_heading');
@@ -45,10 +45,10 @@ const initialCards = [
     link: "./images/arkhyz.jpg",
   },
 ];
-
+// рендер массива (???)
 function renderElements() {
   let cardsArray = initialCards.map(addCard);
-  cardsContainer.append(cardElement);
+  cardsContainer.prepend(cardElement);
 }
 
 //ф-ция создания и добавления (?) карточки
@@ -57,9 +57,9 @@ function addCard(cardHeading, cardImage) {
   //получила шаблон карточки себе в переменную вместе с содержимым
   let cardElement = cardTemplate.cloneNode(true);
   // склонировала все содержимое шаблона карточки и сохранила в другую переменную чтобы создавать новые карточки
-  cardElement.querySelector('.elements__card-heading').textContent = cardHeading.name;
+  cardElement.querySelector('.elements__card-heading').textContent = cardHeading;
   //наполнение содержимым - название карточки
-  cardElement.querySelector('.elements__card-img').src = cardImage.link;
+  cardElement.querySelector('.elements__card-img').src = cardImage;
   //наполнение содержимым - src адрес карточки
   cardsContainer.prepend(cardElement);
   //добавила карточку в начало контейнера
@@ -86,32 +86,27 @@ function closeAnyPopup(event) {
     closeBtn.closest(".popup").classList.remove("popup_opened");
   }
 }
-// использую функцию handlePopupCloseClick, чтобы модальное окно закрывалось при нажатии пользователя на крестик
+// использую функцию closeAnyPoppup, чтобы модальное окно закрывалось при нажатии пользователя на крестик
 
 
 //ф-ция при нажатии на кнопку "сохранить"
 function formSubmitHandler(evt) {
   evt.preventDefault();
-  profileHeading.textContent = formFieldName.value;
-  profileSubheading.textContent = formFieldAbout.value;
-  popup.classList.remove('popup_opened');
+  let button = evt.target;
+  //клик по кнопке submit на popup-profile и присвоение значений полей, закрытие попапа
+  if (button.closest('.popup-profile')) {
+    profileHeading.textContent = formFieldName.value;
+    profileSubheading.textContent = formFieldAbout.value;
+    //клик по нажатию на кнопку "создать" добавляет карточку на страницу и присваивает значение из полей (?)
+  } else if (button.closest('.popup-cards')) {
+    addCard(formFieldHeading.value, formFieldLink.value);
+  }
+  button.closest('.popup').classList.remove('popup_opened');
 }
 // отмена стандартной отправки формы на сервер, присвоение данных из инпутов странице и вызов функции для закрытия попапа
-
-// //ф-ция при нажатии на кнопку "создать"
-// function cardCreate(evt) {
-//   evt.preventDefault();
-//   cardHeading.textContent = formFieldHeading.value;
-//   cardImage.textContent = formFieldLink.value;
-//   popup.classList.remove('popup_opened');
-// }
-
 
 buttonAdd.addEventListener('click', openAnyPopup);
 page.addEventListener("click", closeAnyPopup);
 profileButtonEdit.addEventListener("click", openAnyPopup);
-// вешаю обработчик события на кнопку, чтобы потом добавить реакцию на событие. функция handleProfileButtonEditClick - аргумент? зачем?
-// использую функцию handleProfileButtonEditClick, чтобы добавить модификатор _opened по клику пользователя на кнопку редактирования профиля
-// вешаю обработчик события на кнопку "закрыть", чтобы потом добавить реакцию на событие. функция handlePopupCloseClick
-form.addEventListener("submit", formSubmitHandler);
+form.forEach(Element => {Element.addEventListener("submit", formSubmitHandler)});
 // вешаю обработчик события на кнопку формы "сохранить", чтобы данные перезаписывались и попап закрывался. функция formSubmitHandler;
