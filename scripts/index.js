@@ -1,6 +1,4 @@
-const profileButtonEdit = document.querySelector(".profile__button-edit");
-// присвоила переменной с именем ProfileButtonEditNode значение кнопки редактирования,
-// выбранное методом querySelector из разметки по классу .profile__button-edit
+const profileButtonEdit = document.querySelector(".profile__button-edit");// присвоила переменной с именем ProfileButtonEditNode значение кнопки редактирования, выбранное методом querySelector из разметки по классу .profile__button-edit
 const popup = document.querySelector(".popup-profile");
 const popupClose = document.querySelector(".popup__close");
 const popupCards = document.querySelector(".popup-cards");
@@ -13,14 +11,16 @@ const profileHeading = document.querySelector(".profile__heading");
 const profileSubheading = document.querySelector(".profile__subheading");
 const page = document.querySelector(".page");
 const buttonAdd = document.querySelector(".profile__button-add");
+const cardsContainer = document.querySelector(".elements");
 const cardHeading = document.querySelector(".elements__card-heading");
 const cardImage = document.querySelector(".elements__card-img");
-const cardsContainer = document.querySelector(".elements");
-//получила шаблон карточки себе в переменную вместе с содержимым
-
+const cardLikeButton = document.querySelector('.elements__like-button');
+const popupPicture = document.querySelector('.popup__picture');
+const popupCapture = document.querySelector('.popup__capture');
+const popupImage = document.querySelector('.popup-image');
 
 //работа с карточками
-//создала массив с данными карточек - заголовок и изображение (и зачем???)
+//создала массив с данными карточек - заголовок и изображение
 const initialCards = [
   {
     name: "Архыз",
@@ -64,17 +64,45 @@ cardsContainer.append(...initialCards);
 
 //ф-ция создания и добавления карточки
 function addCard(cardHeading, cardImage) {
-  const cardTemplate = document.querySelector("#card-template").content;
+  const cardTemplate = document.querySelector("#card-template").content; //получила шаблон карточки себе в переменную вместе с содержимым
   const cardElement = cardTemplate.cloneNode(true);
   // склонировала все содержимое шаблона карточки и сохранила в другую переменную чтобы создавать новые карточки
-  cardElement.querySelector(".elements__card-heading").textContent = cardHeading;
-  //наполнение содержимым - название карточки
-  cardElement.querySelector(".elements__card-img").src = cardImage;
-  //наполнение содержимым - src адрес карточки
-  cardsContainer.prepend(cardElement);
-  //добавила карточку в начало контейнера
+  cardElement.querySelector(".elements__card-heading").textContent = cardHeading; //наполнение содержимым - название карточки
+  cardElement.querySelector(".elements__card-img").src = cardImage; //наполнение содержимым - src адрес карточки
+   // лайк 
+  cardElement.querySelector('.elements__like-button').addEventListener('click', likeButtonHandler);
+  
+  // удаление карточки
+  cardElement.querySelector('.elements__remove-button').addEventListener('click', removeButtonHandler);
+
+  // открытие попапа картинки
+  cardElement.querySelector('.elements__card-img').addEventListener('click', openPopupPictureHandler);
+
+  cardsContainer.prepend(cardElement); //добавила карточку в начало контейнера
   return cardElement;
 }
+// ф-ция добавления лайка
+function likeButtonHandler(event) {
+  const eventTarget = event.target;
+  // при нажатии на кнопку сайта она получает значение переменной eventTarget, так как является активным на данный момент объектом и на ней срабатывает слушатель события по клику и функция прибавления модификатора к классу
+  eventTarget.classList.toggle('elements__like-button_clicked');
+}
+
+// ф-ция удаления карточки
+function removeButtonHandler(event) {
+  const eventTarget = event.target;
+  eventTarget.closest('.elements__card').remove();
+}
+
+// ф-ция открытия попапа картинки 
+function openPopupPictureHandler(event) {
+  const eventTarget = event.target;
+  popupPicture.src = eventTarget.src;
+  const parentSearching = eventTarget.closest('.elements__card');
+  popupCapture.textContent = parentSearching.querySelector('.elements__card-heading').textContent;
+  popupImage.classList.add('popup_opened');
+}
+
 //функция открытия попапов
 function openAnyPopup(event) {
   const tag = event.target;
@@ -114,10 +142,13 @@ function formSubmitHandler(evt) {
 }
 // отмена стандартной отправки формы на сервер, присвоение данных из инпутов странице и вызов функции для закрытия попапа
 
+
+// слушатели событий
 buttonAdd.addEventListener("click", openAnyPopup);
 page.addEventListener("click", closeAnyPopup);
 profileButtonEdit.addEventListener("click", openAnyPopup);
 form.forEach((Element) => {
   Element.addEventListener("submit", formSubmitHandler);
 });
-// вешаю обработчик события на кнопку формы "сохранить", чтобы данные перезаписывались и попап закрывался. функция formSubmitHandler;
+
+

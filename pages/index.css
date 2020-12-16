@@ -32,6 +32,7 @@
 @import url(../blocks/elements/__card/elements__card.css);
 @import url(../blocks/elements/__card-heading/elements__card-heading.css);
 @import url(../blocks/elements/__like-button/elements__like-button.css);
+@import url(../blocks/elements/__like-button/_clicked/elements__like-button_clicked.css);
 @import url(../blocks/elements/__wrapper/elements__wrapper.css);
 @import url(../blocks/elements/__remove-button/elemens__remove-button.css);
 
@@ -51,3 +52,5 @@
 @import url(../blocks/popup/__form-row/_type/popup__form-row_type_name.css);
 @import url(../blocks/popup/__form-row/_type/popup__form-row_type_about.css);
 @import url(../blocks/popup/__save/popup__save.css);
+@import url(../blocks/popup/__capture/popup__capture.css);
+@import url(../blocks/popup/__picture/popup__picture.css);
