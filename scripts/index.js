@@ -127,7 +127,7 @@ function closeAnyPopup(event) {
 // использую функцию closeAnyPoppup, чтобы модальное окно закрывалось при нажатии пользователя на крестик
 
 //ф-ция при нажатии на кнопку "сохранить"
-function formSubmitHandler(evt) {
+function ProfileSubmitHandler(evt) {
   evt.preventDefault();
   const button = evt.target;
   //клик по кнопке submit на popup-profile и присвоение значений полей, закрытие попапа
@@ -135,19 +135,20 @@ function formSubmitHandler(evt) {
     profileHeading.textContent = formFieldName.value;
     profileSubheading.textContent = formFieldAbout.value;
     //клик по нажатию на кнопку "создать" добавляет карточку на страницу и присваивает значение из полей
-  } else if (button.closest(".popup-cards")) {
-    addCard(formFieldHeading.value, formFieldLink.value);
-  }
-  button.closest(".popup").classList.remove("popup_opened");
+  } button.closest(".popup").classList.remove("popup_opened");
 }
-// отмена стандартной отправки формы на сервер, присвоение данных из инпутов странице и вызов функции для закрытия попапа
 
+
+
+// отмена стандартной отправки формы на сервер, присвоение данных из инпутов странице и вызов функции для закрытия попапа
+// } else if (button.closest(".popup-cards")) {
+  // addCard(formFieldHeading.value, formFieldLink.value);
 
 // слушатели событий
 buttonAdd.addEventListener("click", openAnyPopup);
 page.addEventListener("click", closeAnyPopup);
 profileButtonEdit.addEventListener("click", openAnyPopup);
-popupProfileSave.addEventListener('submit', formSubmitHandler);
-popupCardElemSave.addEventListener('submit', formSubmitHandler);
+popupProfileSave.addEventListener('click', ProfileSubmitHandler);
+// popupCardElemSave.addEventListener('click', fu)
 
 
