@@ -2,7 +2,7 @@ const profileButtonEdit = document.querySelector(".profile__button-edit");// п�
 const popup = document.querySelector(".popup-profile");
 const popupClose = document.querySelector(".popup__close");
 const popupCards = document.querySelector(".popup-cards");
-const form = document.querySelectorAll(".popup__form");
+const forms = document.querySelectorAll(".popup__form");
 const formFieldName = document.querySelector(".popup__form-row_type_name");
 const formFieldAbout = document.querySelector(".popup__form-row_type_about");
 const formFieldHeading = document.querySelector(".popup__form-row_type_heading");
@@ -69,9 +69,9 @@ function addCard(cardHeading, cardImage) {
   // склонировала все содержимое шаблона карточки и сохранила в другую переменную чтобы создавать новые карточки
   cardElement.querySelector(".elements__card-heading").textContent = cardHeading; //наполнение содержимым - название карточки
   cardElement.querySelector(".elements__card-img").src = cardImage; //наполнение содержимым - src адрес карточки
-   // лайк 
+   // лайк
   cardElement.querySelector('.elements__like-button').addEventListener('click', likeButtonHandler);
-  
+
   // удаление карточки
   cardElement.querySelector('.elements__remove-button').addEventListener('click', removeButtonHandler);
 
@@ -94,13 +94,13 @@ function removeButtonHandler(event) {
   eventTarget.closest('.elements__card').remove();
 }
 
-// ф-ция открытия попапа картинки 
-function openPopupPictureHandler(event) {
-  const eventTarget = event.target;
-  popupPicture.src = eventTarget.src;
-  const parentSearching = eventTarget.closest('.elements__card');
-  popupCapture.textContent = parentSearching.querySelector('.elements__card-heading').textContent;
-  popupImage.classList.add('popup_opened');
+// ф-ция открытия попапа картинки
+function openPopupPictureHandler(event) { //попап карточки открывается по нажатию на картинку карточки
+  const eventTarget = event.target; //для этого добавляется свойство target для события event, чтобы понимать, на каком именно эл-те был клик
+  popupPicture.src = eventTarget.src; //переменная eventTarget является тем объектом, на который произвели клик, в данном случае это картинка карточки, она присваивается как значение картинки попапа (?)
+  const parentSearching = eventTarget.closest('.elements__card'); //находим в DOM родительский контейнер картинки — див со всеми элементами карточки и присваиваем его переменной
+  popupCapture.textContent = parentSearching.querySelector('.elements__card-heading').textContent; //берем текстовое содержимое переменной, а которой хранится подпись к картинке попапа и присваиваем ей значение заголовка карточки через поиск в родительском элементе — родителе карточки с помощью метода querySelector
+  popupImage.classList.add('popup_opened'); //делаем попап видимым после того, как он получил в себя все данные
 }
 
 //функция открытия попапов
@@ -147,7 +147,7 @@ function formSubmitHandler(evt) {
 buttonAdd.addEventListener("click", openAnyPopup);
 page.addEventListener("click", closeAnyPopup);
 profileButtonEdit.addEventListener("click", openAnyPopup);
-form.forEach((Element) => {
+forms.forEach((Element) => {
   Element.addEventListener("submit", formSubmitHandler);
 });
 
