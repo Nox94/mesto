@@ -20,6 +20,8 @@ const cardLikeButton = document.querySelector('.elements__like-button');
 const popupPicture = document.querySelector('.popup__picture');
 const popupCapture = document.querySelector('.popup__capture');
 const popupImage = document.querySelector('.popup-image');
+const cardTemplate = document.querySelector("#card-template").content; //получила шаблон карточки себе в переменную вместе с содержимым
+const cardElement = cardTemplate.cloneNode(true);
 
 //работа с карточками
 //создала массив с данными карточек - заголовок и изображение
@@ -62,12 +64,8 @@ function renderList() {
 cardsContainer.append(...initialCards);
   };
 
-
-//ф-ция создания и добавления карточки
-function addCard(cardHeading, cardImage) {
-  const cardTemplate = document.querySelector("#card-template").content; //получила шаблон карточки себе в переменную вместе с содержимым
-  const cardElement = cardTemplate.cloneNode(true);
-  // склонировала все содержимое шаблона карточки и сохранила в другую переменную чтобы создавать новые карточки
+  // ф-ция создания карточки
+function createCard(cardHeading, cardImage) {
   cardElement.querySelector(".elements__card-heading").textContent = cardHeading; //наполнение содержимым - название карточки
   cardElement.querySelector(".elements__card-img").src = cardImage; //наполнение содержимым - src адрес карточки
   cardElement.querySelector(".elements__card-img").alt = cardHeading; //наполнение содержимым - атрибут alt у изображения карточки по ее названию
@@ -79,9 +77,13 @@ function addCard(cardHeading, cardImage) {
 
   // открытие попапа картинки
   cardElement.querySelector('.elements__card-img').addEventListener('click', openPopupPictureHandler);
-
-  cardsContainer.prepend(cardElement); //добавила карточку в начало контейнера
   return cardElement;
+}
+
+//ф-ция добавления карточки
+function addCard(cardHeading, cardImage) {
+  const card = createCard(cardHeading, cardImage);
+  cardsContainer.prepend(card); //добавила карточку в начало контейнера
 }
 // ф-ция добавления лайка
 function likeButtonHandler(event) {
@@ -126,7 +128,7 @@ function closeAnyPopup(event) {
 }
 // использую функцию closeAnyPoppup, чтобы модальное окно закрывалось при нажатии пользователя на крестик
 
-//ф-ция при нажатии на кнопку "сохранить"
+//ф-ция при нажатии на кнопку "сохранить" у попапа редактирования профиля
 function ProfileSubmitHandler(evt) {
   evt.preventDefault();
   const button = evt.target;
@@ -138,7 +140,16 @@ function ProfileSubmitHandler(evt) {
   } button.closest(".popup").classList.remove("popup_opened");
 }
 
-
+//ф-ция при нажатии на кнопку "создать" у попапа добавления картинки
+function CardSaveHandler() {
+  if (popupCardElemSave.closest('.popup-cards')) {
+    cardHeading.textContent = formFieldHeading.value;
+    cardImage.src = formFieldLink.value;
+    addCard();
+    //клик по нажатию на кнопку "создать" добавляет карточку на страницу и присваивает значение из полей
+  } button.closest(".popup").classList.remove("popup_opened");
+}console.log(popupCardElemSave);
+console.log(cardHeading);
 
 // отмена стандартной отправки формы на сервер, присвоение данных из инпутов странице и вызов функции для закрытия попапа
 // } else if (button.closest(".popup-cards")) {
@@ -149,6 +160,6 @@ buttonAdd.addEventListener("click", openAnyPopup);
 page.addEventListener("click", closeAnyPopup);
 profileButtonEdit.addEventListener("click", openAnyPopup);
 popupProfileSave.addEventListener('click', ProfileSubmitHandler);
-// popupCardElemSave.addEventListener('click', fu)
+popupCardElemSave.addEventListener('click', CardSaveHandler);
 
 
