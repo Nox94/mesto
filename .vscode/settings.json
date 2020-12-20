@@ -1,0 +1,6 @@
+{
+  "files.autoSave": "onFocusChange",
+  "editor.find.autoFindInSelection": "always",
+  "editor.cursorWidth": 1,
+  "editor.autoClosingOvertype": "always"
+}

@@ -1,6 +1,8 @@
 const profileButtonEdit = document.querySelector(".profile__button-edit");// присвоила переменной с именем ProfileButtonEditNode значение кнопки редактирования, выбранное методом querySelector из разметки по классу .profile__button-edit
 const popup = document.querySelector(".popup-profile");
 const popupClose = document.querySelector(".popup__close");
+const popupProfileSave = document.querySelector('#popupProfileSave'); //кнопка сохранения в форме ред-я профиля
+const popupCardElemSave = document.querySelector('#popupCardElemSave'); //кнопка сохранения новой карточки на странице
 const popupCards = document.querySelector(".popup-cards");
 const forms = document.querySelectorAll(".popup__form");
 const formFieldName = document.querySelector(".popup__form-row_type_name");
@@ -49,15 +51,14 @@ const initialCards = [
 ];
 
 initialCards.forEach(function (item) {
-  let some = item.name;
-  let somethingElse = item.link;
+  const some = item.name;
+  const somethingElse = item.link;
   addCard(some, somethingElse);
 });
 
 
 // рендер массива для добавления первых шести карточек на страницу при загрузке
 function renderList() {
-  const listItems = initialCards.map(addCard);
 cardsContainer.append(...initialCards);
   };
 
@@ -69,6 +70,7 @@ function addCard(cardHeading, cardImage) {
   // склонировала все содержимое шаблона карточки и сохранила в другую переменную чтобы создавать новые карточки
   cardElement.querySelector(".elements__card-heading").textContent = cardHeading; //наполнение содержимым - название карточки
   cardElement.querySelector(".elements__card-img").src = cardImage; //наполнение содержимым - src адрес карточки
+  cardElement.querySelector(".elements__card-img").alt = cardHeading; //наполнение содержимым - атрибут alt у изображения карточки по ее названию
    // лайк
   cardElement.querySelector('.elements__like-button').addEventListener('click', likeButtonHandler);
 
@@ -83,22 +85,20 @@ function addCard(cardHeading, cardImage) {
 }
 // ф-ция добавления лайка
 function likeButtonHandler(event) {
-  const eventTarget = event.target;
   // при нажатии на кнопку сайта она получает значение переменной eventTarget, так как является активным на данный момент объектом и на ней срабатывает слушатель события по клику и функция прибавления модификатора к классу
-  eventTarget.classList.toggle('elements__like-button_clicked');
+  event.target.classList.toggle('elements__like-button_clicked');
 }
 
 // ф-ция удаления карточки
 function removeButtonHandler(event) {
-  const eventTarget = event.target;
-  eventTarget.closest('.elements__card').remove();
+  event.target.closest('.elements__card').remove();
 }
 
 // ф-ция открытия попапа картинки
 function openPopupPictureHandler(event) { //попап карточки открывается по нажатию на картинку карточки
-  const eventTarget = event.target; //для этого добавляется свойство target для события event, чтобы понимать, на каком именно эл-те был клик
-  popupPicture.src = eventTarget.src; //переменная eventTarget является тем объектом, на который произвели клик, в данном случае это картинка карточки, она присваивается как значение картинки попапа (?)
-  const parentSearching = eventTarget.closest('.elements__card'); //находим в DOM родительский контейнер картинки — див со всеми элементами карточки и присваиваем его переменной
+  popupPicture.src = event.target.src; // event.target является тем объектом, на который произвели клик, в данном случае это картинка карточки, она присваивается как значение картинки попапа
+  popupPicture.alt = cardHeading; //добавляет атрибут alt изображению попапа картинки карточки по названию карточки
+  const parentSearching = event.target.closest('.elements__card'); //находим в DOM родительский контейнер картинки — див со всеми элементами карточки и присваиваем его переменной
   popupCapture.textContent = parentSearching.querySelector('.elements__card-heading').textContent; //берем текстовое содержимое переменной, а которой хранится подпись к картинке попапа и присваиваем ей значение заголовка карточки через поиск в родительском элементе — родителе карточки с помощью метода querySelector
   popupImage.classList.add('popup_opened'); //делаем попап видимым после того, как он получил в себя все данные
 }
@@ -134,7 +134,7 @@ function formSubmitHandler(evt) {
   if (button.closest(".popup-profile")) {
     profileHeading.textContent = formFieldName.value;
     profileSubheading.textContent = formFieldAbout.value;
-    //клик по нажатию на кнопку "создать" добавляет карточку на страницу и присваивает значение из полей (?)
+    //клик по нажатию на кнопку "создать" добавляет карточку на страницу и присваивает значение из полей
   } else if (button.closest(".popup-cards")) {
     addCard(formFieldHeading.value, formFieldLink.value);
   }
@@ -147,8 +147,7 @@ function formSubmitHandler(evt) {
 buttonAdd.addEventListener("click", openAnyPopup);
 page.addEventListener("click", closeAnyPopup);
 profileButtonEdit.addEventListener("click", openAnyPopup);
-forms.forEach((Element) => {
-  Element.addEventListener("submit", formSubmitHandler);
-});
+popupProfileSave.addEventListener('submit', formSubmitHandler);
+popupCardElemSave.addEventListener('submit', formSubmitHandler);
 
 
