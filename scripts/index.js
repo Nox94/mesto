@@ -1,10 +1,13 @@
-const profileButtonEdit = document.querySelector(".profile__button-edit");// присвоила переменной с именем ProfileButtonEditNode значение кнопки редактирования, выбранное методом querySelector из разметки по классу .profile__button-edit
-const popupProfile = document.querySelector(".popup-profile");
+const profileButtonEdit = document.querySelector(".profile__button-edit");
+
+const popupProfile = document.querySelector(".popup-profile"); //popup edit
+const popupCards = document.querySelector(".popup-cards"); //popup add cards
+const popupImage = document.querySelector('.popup-image');//popup card image
+
 const popup = document.querySelectorAll('.popup');
 const popupClose = document.querySelectorAll(".popup__close");
 const popupProfileSave = document.querySelector('#popupProfileSave'); //кнопка сохранения в форме ред-я профиля
 const popupCardElemSave = document.querySelector('#popupCardElemSave'); //кнопка сохранения новой карточки на странице
-const popupCards = document.querySelector(".popup-cards");
 const forms = document.querySelectorAll(".popup__form");
 const formFieldName = document.querySelector(".popup__form-row_type_name");
 const formFieldAbout = document.querySelector(".popup__form-row_type_about");
@@ -13,12 +16,10 @@ const formFieldLink = document.querySelector(".popup__form-row_type_link");
 const profileHeading = document.querySelector(".profile__heading");
 const profileSubheading = document.querySelector(".profile__subheading");
 const page = document.querySelector(".page");
-const buttonAdd = document.querySelector(".profile__button-add");
+const profileButtonAdd = document.querySelector(".profile__button-add");
 const cardsContainer = document.querySelector(".elements");
-
 const popupPicture = document.querySelector('.popup__picture');
 const popupCapture = document.querySelector('.popup__capture');
-const popupImage = document.querySelector('.popup-image');
 const cardTemplate = document.querySelector("#card-template").content; //получила шаблон карточки себе в переменную вместе с содержимым
 
 
@@ -109,19 +110,13 @@ function openPopupPictureHandler(event) { //попап карточки откр
 }
 
 // функция открытия попапов
-function openPopup () {
-  popup.classList.add('popup_opened');
-}
-openPopup(popup);
-//функция-обработчик открытия попапов по событию
-function handlerOpenAnyPopup(event) {
-  const modal = event.target;
-  openPopup(modal.closest('.popup'));
+function openPopup (modal) {
+  modal.classList.add('popup_opened');
 }
 
-  // if (tag.classList.contains("profile__button-edit")) {
-  //   formFieldName.value = profileHeading.textContent;
-  //   formFieldAbout.value = profileSubheading.textContent;
+
+
+  // 
   //   popup.classList.add("popup_opened");
   // } else if (tag.classList.contains("profile__button-add")) {
   //   popupCards.classList.add("popup_opened");
@@ -170,10 +165,16 @@ function сardSaveHandler(evt) {
   // addCard(formFieldHeading.value, formFieldLink.value);
 
 // слушатели событий
-buttonAdd.addEventListener("click", openAnyPopup);
-
 popupClose.forEach(item => item.addEventListener('click', handlerCloseAnyPopup));
-profileButtonEdit.addEventListener("click", openAnyPopup);
+profileButtonEdit.addEventListener("click", () => {
+  formFieldName.value = profileHeading.textContent; 
+  formFieldAbout.value = profileSubheading.textContent; 
+  openPopup(popupProfile);
+});
+profileButtonAdd.addEventListener('click', () => {
+  openPopup(popupCards);
+});
+
 popupProfileSave.addEventListener('submit', ProfileSubmitHandler);
 popupCardElemSave.addEventListener('submit', сardSaveHandler);
 
