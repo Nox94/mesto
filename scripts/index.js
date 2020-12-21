@@ -103,7 +103,7 @@ function removeButtonHandler(event) {
 // ф-ция открытия попапа картинки
 function openPopupPictureHandler(event) { //попап карточки открывается по нажатию на картинку карточки
   popupPicture.src = event.target.src; // event.target является тем объектом, на который произвели клик, в данном случае это картинка карточки, она присваивается как значение картинки попапа
-  popupPicture.alt = cardHeading; //добавляет атрибут alt изображению попапа картинки карточки по названию карточки
+  popupPicture.alt = event.target.alt; //добавляет атрибут alt изображению попапа картинки карточки по названию карточки
   const parentSearching = event.target.closest('.elements__card'); //находим в DOM родительский контейнер картинки — див со всеми элементами карточки и присваиваем его переменной
   popupCapture.textContent = parentSearching.querySelector('.elements__card-heading').textContent; //берем текстовое содержимое переменной, а которой хранится подпись к картинке попапа и присваиваем ей значение заголовка карточки через поиск в родительском элементе — родителе карточки с помощью метода querySelector
   popupImage.classList.add('popup_opened'); //делаем попап видимым после того, как он получил в себя все данные
@@ -113,17 +113,6 @@ function openPopupPictureHandler(event) { //попап карточки откр
 function openPopup (modal) {
   modal.classList.add('popup_opened');
 }
-
-
-
-  // 
-  //   popup.classList.add("popup_opened");
-  // } else if (tag.classList.contains("profile__button-add")) {
-  //   popupCards.classList.add("popup_opened");
-  // }
-
-// присвоила полям формы значения заголовка и подзаголовка со страницы и поместила их в функцию, чтобы значения в поля загружались при каждом нажатии на кнопку.
-// использую функцию openAnyPopup, чтобы добавить модификатор _opened по клику пользователя на кнопку редактирования профиля
 
 //ф-ция-обработчик закрытия попапов по событию
 function handlerCloseAnyPopup(event) {
@@ -137,7 +126,7 @@ function closeAnyPopup(popup_var) {
 // использую функцию closeAnyPoppup, чтобы модальное окно закрывалось при нажатии пользователя на крестик
 
 //ф-ция при нажатии на кнопку "сохранить" у попапа редактирования профиля
-function ProfileSubmitHandler(evt) {
+function profileSubmitHandler(evt) {
   evt.preventDefault();
   const button = evt.target;
   //клик по кнопке submit на popup-profile и присвоение значений полей, закрытие попапа
@@ -152,30 +141,31 @@ function ProfileSubmitHandler(evt) {
 function сardSaveHandler(evt) {
   evt.preventDefault();
   if (popupCardElemSave.closest('.popup-cards')) {
-
-    addCard(cardsContainer, createCard(formFieldHeading.value, formFieldLink.value, cardTemplate));
-    //клик по нажатию на кнопку "создать" добавляет карточку на страницу и присваивает значение из полей
+    addCard(cardsContainer, createCard(formFieldHeading.value, formFieldLink.value, cardTemplate)); //клик по нажатию на кнопку "создать" добавляет карточку на страницу и присваивает значение из полей
   }; 
   closeAnyPopup(evt.target.closest(".popup"));
-}console.log(popupCardElemSave);
+}
 
 
 // отмена стандартной отправки формы на сервер, присвоение данных из инпутов странице и вызов функции для закрытия попапа
 // } else if (button.closest(".popup-cards")) {
   // addCard(formFieldHeading.value, formFieldLink.value);
 
+
 // слушатели событий
 popupClose.forEach(item => item.addEventListener('click', handlerCloseAnyPopup));
+
 profileButtonEdit.addEventListener("click", () => {
   formFieldName.value = profileHeading.textContent; 
   formFieldAbout.value = profileSubheading.textContent; 
   openPopup(popupProfile);
 });
+
 profileButtonAdd.addEventListener('click', () => {
   openPopup(popupCards);
 });
 
-popupProfileSave.addEventListener('submit', ProfileSubmitHandler);
+popupProfileSave.addEventListener('submit', profileSubmitHandler);
 popupCardElemSave.addEventListener('submit', сardSaveHandler);
 
 
