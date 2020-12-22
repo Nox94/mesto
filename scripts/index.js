@@ -106,7 +106,7 @@ function openPopupPictureHandler(event) { //попап карточки откр
   popupPicture.alt = event.target.alt; //добавляет атрибут alt изображению попапа картинки карточки по названию карточки
   const parentSearching = event.target.closest('.elements__card'); //находим в DOM родительский контейнер картинки — див со всеми элементами карточки и присваиваем его переменной
   popupCapture.textContent = parentSearching.querySelector('.elements__card-heading').textContent; //берем текстовое содержимое переменной, а которой хранится подпись к картинке попапа и присваиваем ей значение заголовка карточки через поиск в родительском элементе — родителе карточки с помощью метода querySelector
-  popupImage.classList.add('popup_opened'); //делаем попап видимым после того, как он получил в себя все данные
+  openPopup(popupImage); //делаем попап видимым после того, как он получил в себя все данные
 }
 
 // функция открытия попапов
@@ -129,22 +129,19 @@ function closeAnyPopup(popup_var) {
 function profileSubmitHandler(evt) {
   evt.preventDefault();
   const button = evt.target;
-  //клик по кнопке submit на popup-profile и присвоение значений полей, закрытие попапа
-  if (button.closest(".popup-profile")) {
-    profileHeading.textContent = formFieldName.value;
-    profileSubheading.textContent = formFieldAbout.value;
-    //клик по нажатию на кнопку "создать" добавляет карточку на страницу и присваивает значение из полей
-  } button.closest(".popup").classList.remove("popup_opened");
+  profileHeading.textContent = formFieldName.value;
+  profileSubheading.textContent = formFieldAbout.value;
+  closeAnyPopup(popupProfile);
 }
 
 //ф-ция при нажатии на кнопку "создать" у попапа добавления картинки
 function сardSaveHandler(evt) {
   evt.preventDefault();
-  if (popupCardElemSave.closest('.popup-cards')) {
-    addCard(cardsContainer, createCard(formFieldHeading.value, formFieldLink.value, cardTemplate)); //клик по нажатию на кнопку "создать" добавляет карточку на страницу и присваивает значение из полей
+  popupCardElemSave.closest('.popup-cards')
+    addCard(cardsContainer, createCard(formFieldHeading.value, formFieldLink.value, cardTemplate));
+    closeAnyPopup(popupCards); //клик по нажатию на кнопку "создать" добавляет карточку на страницу и присваивает значение из полей
   }; 
-  closeAnyPopup(evt.target.closest(".popup"));
-}
+
 
 
 // отмена стандартной отправки формы на сервер, присвоение данных из инпутов странице и вызов функции для закрытия попапа
