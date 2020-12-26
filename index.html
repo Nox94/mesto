@@ -42,11 +42,14 @@
       <h2 class="popup__heading">Редактировать профиль</h2>
       <form class="popup__form" id="popupProfileSave" action="#" name="Form">
         <fieldset class="popup__form-fieldset">
-          <input class="popup__form-row popup__form-row_type_name" type="text" name="Name" value="" placeholder="Имя">
-          <input class="popup__form-row popup__form-row_type_about" type="text" name="About" value=""
-            placeholder="О себе">
+          <input class="popup__form-row popup__form-row_type_name" type="text" name="Name" value="" placeholder="Имя"
+            minlength="2" maxlength="40" autocomplete="off" id="name-profile" novalidate required>
+            <span id="name-profile-error" class="error"></span>
+          <input class="popup__form-row popup__form-row_type_about" id="subname-profile"type="text" name="About" value=""
+            placeholder="О себе" required minlength="2" maxlength="200" autocomplete="off" novalidate>
+            <span id="subname-profile-error" class="error"></span>
         </fieldset>
-        <button class="popup__save" type="submit" aria-label="Сохранить">Сохранить</button>
+        <button class="popup__save" type="submit" aria-label="Сохранить" name="submit">Сохранить</button>
       </form>
     </div>
   </div>
@@ -57,12 +60,29 @@
       <h2 class="popup__heading">Новое место</h2>
       <form class="popup__form" id="popupCardElemSave" action="#" name="Form">
         <fieldset class="popup__form-fieldset">
-          <input class="popup__form-row popup__form-row_type_heading" type="text" name="Heading" value=""
-            placeholder="Название">
-          <input class="popup__form-row popup__form-row_type_link" type="url" name="Link" value="" required
-            placeholder="Ссылка на картинку">
+          <input class="popup__form-row popup__form-row_type_heading" 
+          id="popup-cards-heading"
+          type="text" 
+          name="Heading" 
+          value="" 
+          minlength="2"
+          maxlength="30"
+          required
+          autocomplete="off"
+          novalidate
+          placeholder="Название">
+            <span id="popup-cards-heading-error" class="error"></span>
+          <input class="popup__form-row popup__form-row_type_link" 
+          id="popup-cards-link"
+          type="url" 
+          name="Link" 
+          value="" 
+          required
+          novalidate
+          placeholder="Ссылка на картинку">
+            <span id="popup-cards-link-error" class="error"></span>
         </fieldset>
-        <button class="popup__save" type="submit" aria-label="Создать">Создать</button>
+        <button class="popup__save" type="submit" name="submit" aria-label="Создать">Создать</button>
       </form>
     </div>
   </div>
@@ -86,6 +106,7 @@
     </div>
   </template>
   <!--js-->
+  <script src="./scripts/validate.js"></script>
   <script src="./scripts/index.js"></script>
 </body>
 
