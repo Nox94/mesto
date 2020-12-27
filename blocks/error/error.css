@@ -7,3 +7,11 @@
     box-sizing: border-box;
     height: 25px;
   }
+
+  .error:first-of-type {
+    margin: 5px 0 13px 0;
+  }
+
+  .error:last-of-type {
+    margin: 5px 0 25px 0;
+  }
