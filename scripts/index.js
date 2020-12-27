@@ -1,19 +1,16 @@
-const profileButtonEdit = document.querySelector(".profile__button-edit");
 const popupProfile = document.querySelector(".popup-profile"); //popup edit
 const popupCards = document.querySelector(".popup-cards"); //popup add cards
 const popupImage = document.querySelector(".popup-image"); //popup card image
-const popup = document.querySelectorAll(".popup");
 const popupClose = document.querySelectorAll(".popup__close");
 const popupProfileSave = document.querySelector("#popupProfileSave"); //форма ред-я профиля
 const popupCardElemSave = document.querySelector("#popupCardElemSave"); //форма добавления новой карточки на страницу
-const forms = document.querySelectorAll(".popup__form");
 const formFieldName = document.querySelector(".popup__form-row_type_name");
 const formFieldAbout = document.querySelector(".popup__form-row_type_about");
 const formFieldHeading = document.querySelector(".popup__form-row_type_heading");
 const formFieldLink = document.querySelector(".popup__form-row_type_link");
 const profileHeading = document.querySelector(".profile__heading");
 const profileSubheading = document.querySelector(".profile__subheading");
-const page = document.querySelector(".page");
+const profileButtonEdit = document.querySelector(".profile__button-edit");
 const profileButtonAdd = document.querySelector(".profile__button-add");
 const cardsContainer = document.querySelector(".elements");
 const popupPicture = document.querySelector(".popup__picture");
@@ -50,15 +47,10 @@ const initialCards = [
 ];
 
 initialCards.forEach(function (item) {
-  const some = item.name;
-  const somethingElse = item.link;
-  addCard(cardsContainer, createCard(some, somethingElse, cardTemplate));
+  const cardText = item.name;
+  const cardImageLink = item.link;
+  addCard(cardsContainer, createCard(cardText, cardImageLink, cardTemplate));
 });
-
-// рендер массива для добавления первых шести карточек на страницу при загрузке
-function renderList() {
-  cardsContainer.append(...initialCards);
-}
 
 // ф-ция создания карточки
 function createCard(headingText, imageLink, template) {
@@ -111,13 +103,13 @@ function openPopupPictureHandler(event) {
   openPopup(popupImage); //делаем попап видимым после того, как он получил в себя все данные
 }
 
-function PopupCloseHandler(evt) {
+function popupCloseHandler(evt) {
   if (evt.target === evt.currentTarget) {
     closeAnyPopup(evt.currentTarget);
   }
 }
 
-function PopupEscapeHandler(evt) {
+function popupEscapeHandler(evt) {
   if (evt.key === "Escape") {
     const active = evt.currentTarget.querySelector('.popup_opened');
     closeAnyPopup(active);
@@ -126,8 +118,8 @@ function PopupEscapeHandler(evt) {
 
 // функция открытия попапов
 function openPopup(modal) {
-  document.addEventListener('keydown', PopupEscapeHandler);
-  modal.addEventListener('click', PopupCloseHandler);
+  document.addEventListener('keydown', popupEscapeHandler);
+  modal.addEventListener('click', popupCloseHandler);
   modal.classList.add("popup_opened");
 }
 
@@ -137,10 +129,10 @@ function handlerCloseAnyPopup(event) {
   closeAnyPopup(closeBtn.closest(".popup"));
 }
 //ф-ция закрытия попапов
-function closeAnyPopup(popup_var) {
-  document.removeEventListener('keydown', PopupEscapeHandler);
-  popup_var.removeEventListener('click', PopupCloseHandler);
-  popup_var.classList.remove("popup_opened");
+function closeAnyPopup(popupWindow) {
+  document.removeEventListener('keydown', popupEscapeHandler);
+  popupWindow.removeEventListener('click', popupCloseHandler);
+  popupWindow.classList.remove("popup_opened");
 }
 
 //ф-ция при нажатии на кнопку "сохранить" у попапа редактирования профиля
@@ -154,7 +146,6 @@ function profileSubmitHandler(evt) {
 //ф-ция при нажатии на кнопку "создать" у попапа добавления карточки
 function сardSaveHandler(evt) {
   evt.preventDefault();
-  popupCardElemSave.closest(".popup-cards");
   addCard(
     cardsContainer,
     createCard(formFieldHeading.value, formFieldLink.value, cardTemplate)
