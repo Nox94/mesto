@@ -1,62 +1,53 @@
 export class FormValidator {
-  constructor(validationConfig, formSelector) {
-      this._formSelector = '.popup__form',
-      this._inputSelector = '.popup__form-row',
-      this._submitButtonSelector = '.popup__save',
-      this._inputInvalidClass = 'popup__form-row_state_invalid',
-      this._buttonInvalidClass = 'popup__save_invalid'
+  constructor(validationConfig, form) {
+      this._inputInvalidClass = validationConfig.inputInvalidClass,
+      this._buttonInvalidClass = validationConfig.buttonInvalidClass,
+      this._form = form;
+      this._submitButton = this._form.querySelector(validationConfig.submitButtonSelector);
+      this._inputsList = this._form.querySelectorAll(validationConfig.inputSelector);
     }
-
-  _checkInputValidity(form, input, config) { //проверка валидации полей формы (приватный)
+    _showError(input) { //показать ошибку (приватный)
+      const error = this._form.querySelector(`#${input.id}-error`);
+      error.textContent = input.validationMessage;
+      input.classList.add(this._inputInvalidClass);
+    }
+      _hideError(input) { //скрыть ошибку (приватный)
+      const error = this._form.querySelector(`#${input.id}-error`);
+      error.textContent = '';
+      input.classList.remove(this._inputInvalidClass);
+    }
+  _checkInputValidity(input) { //проверка валидации полей формы (приватный)
     if (!input.validity.valid) {
-      showError(form, input, config);
+      this._showError(input);
     } else {
-      hideError(form, input, config);
+      this._hideError(input);
     }
   }
-  _setButtonState(button, isActive, config) { //проверка состояния кнопки сабмита (приватный)
-    if (isActive) {
-      button.classList.remove(config._buttonInvalidClass);
-      button.disabled = false;
+  _setButtonState() { //проверка состояния кнопки сабмита (приватный)
+    if (this._form.checkValidity()) {
+      this._submitButton.classList.remove(this._buttonInvalidClass);
+      this._submitButton.disabled = false;
     } else {
-      button.classList.add(config._buttonInvalidClass);
-      button.disabled = true;
+      this._submitButton.classList.add(this._buttonInvalidClass);
+      this._submitButton.disabled = true;
     }
   }
-  _setEventListeners(form, config) { //обработчики событий по клику (приватный)
-    const inputsList = form.querySelectorAll(config._inputSelector);
-    const submitButton = form.querySelector(config._submitButtonSelector);
-    inputsList.forEach((input) => {
+
+  _setEventListeners() { //обработчики данных ввода форм (приватный)
+    this._inputsList.forEach((input) => {
         input.addEventListener('input', () => {
-            checkInputValidity(form, input, config);
-            setButtonState(submitButton, form.checkValidity(), config);
+            this._checkInputValidity(input);
+            this._setButtonState();
         });
     });
 }
-  _showError(form, input, config) { //показать ошибку (приватный)
-  const error = form.querySelector(`#${input.id}-error`);
-  error.textContent = input.validationMessage;
-  input.classList.add(config._inputInvalidClass);
-}
-  _hideError(form, input, config) { //скрыть ошибку (приватный)
-  const error = form.querySelector(`#${input.id}-error`);
-  error.textContent = '';
-  input.classList.remove(config._inputInvalidClass);
-}
 
-  enableValidation(config) { //запуск валидации (публичный)
-  const forms = document.querySelectorAll(config._formSelector);
-  forms.forEach((form) => {
-      setEventListeners(form, config);
-      form.addEventListener('submit', (evt) => {
+
+  enableValidation() { //запуск валидации (публичный)
+      this._setEventListeners();
+      this._form.addEventListener('submit', (evt) => {
           evt.preventDefault();
       });
-      const submitButton = form.querySelector(config._submitButtonSelector);
-      setButtonState(submitButton, form.checkValidity(), config)
-  });
+      this._setButtonState();
+  }
 }
-  enableValidation(validationConfig);
-}
-
-new FormValidator(validationConfig, popupProfileSave);
-new FormValidator(validationConfig, popupCardElemSave);
