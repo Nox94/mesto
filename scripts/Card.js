@@ -1,25 +1,26 @@
 export class Card {
-    constructor(cardConfigurator, openPopupPictureHandler) {
-        this._template = cardConfiguratoe.template,
-            this._text = cardConfigurator.heading,
-            this._image = cardConfigurator.image,
-            this._likeButton = cardConfigurator.likeButton,
-            this._deleteButton = cardConfigurator.deleteButton,
-            this._openPopupPictureHandler = openPopupPictureHandler,
-            this._name = cardConfigurator.name,
-            this._link = cardConfigurator.link,
+    constructor(data, cardSelector) {
+        this._text = data.heading,
+        this._image = data.image,
+        this._likeButton = data.likeButton,
+        this._deleteButton = data.deleteButton,
+        this._openPopupPictureHandler = openPopupPictureHandler,
+        this._name = data.name,
+        this._link = data.link,
+        this._cardSelector = cardSelector,
     }
 
-    _createCard() { //создание карточки
-        const cardElement = this._template.cloneNode(true);
-        const cardImage = this._image;
-        const cardHeading = this._text;
-        const cardDeleteButton = this._deleteButton;
-        const cardLikeButton = this._likeButton;
-        cardHeading.textContent = this._text; //наполнение содержимым - название карточки 
-        cardImage.src = this._link; //наполнение содержимым - src адрес карточки 
-        cardImage.alt = this._name; //наполнение содержимым - атрибут alt у изображения карточки по ее названию 
+    _getTemplate() {
+        const cardElement = document.querySelector(this._cardSelector).content.querySelector('#card-template').cloneNode(true);
         return cardElement;
+    }
+
+    generateCard() {
+        this._element = this._getTemplate();
+        this._element.querySelector('.elements__card-img').src = this._image;
+        this._element.querySelector('.elements__card-heading').textContent = this._text;
+        this._setEventListeners();
+        return this._element;
     }
 
     //добавление лайка
@@ -28,16 +29,21 @@ export class Card {
     }
 
     //удаление карточки
-    _removeButtonHandler(event) {
+    _removeButtonHandler() {
         event.target.closest(".elements__card").remove();
     }
 
     _setEventListeners() {
         //лайк
-        .addEventListener("click", this._likeButtonHandler);
+        cardLikeButton.addEventListener('click', () => {
+            this._likeButtonHandler();
+        });
         //удаление карточки
-        .addEventListener("click", this._removeButtonHandler);
+        cardDeleteButton.addEventListener('click', () => {
+            this._removeButtonHandler();
+        });
         // открытие попапа картинки
-        cardImage.addEventListener("click", this._openPopupPictureHandler);
+        cardImage.addEventListener(('click', () => {
+            this._openPopupPictureHandler();
+        })
     }
-}

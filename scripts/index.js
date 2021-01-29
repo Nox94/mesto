@@ -26,8 +26,7 @@ const validationConfig = {
   buttonInvalidClass: 'popup__submit_invalid',
 };
 
-const cardConfigurator = {
-  template: cardTemplate,
+const data = {
   image: ".elements__card-img",
   heading: ".elements__card-heading",
   deleteButton: ".elements__remove-button",
@@ -40,12 +39,13 @@ const editProfileFormValid = new FormValidator(validationConfig, popupProfileSav
 const addCardFormValid = new FormValidator(validationConfig, popupCardElemSave);
 editProfileFormValid.enableValidation();
 addCardFormValid.enableValidation();
+const newCard = new Card(initialCards);
 
 
 
 //работа с карточками
 //создала массив с данными карточек - заголовок и изображение
-export const initialCards = [
+const initialCards = [
   {
     name: "Архыз",
     link: "./images/arkhyz.jpg",
@@ -75,7 +75,6 @@ export const initialCards = [
 initialCards.forEach((item) => {
   cardConfigurator.name = item.name;
   cardConfigurator.link = item.link;
-  const newCard = new Card(cardConfigurator, openPopupPictureHandler);
   addCard(cardsContainer, newCard.createCard());
 });
 

@@ -11,7 +11,7 @@ export class FormValidator {
       error.textContent = input.validationMessage;
       input.classList.add(this._inputInvalidClass);
     }
-      _hideError(input) { //скрыть ошибку (приватный)
+    _hideError(input) { //скрыть ошибку (приватный)
       const error = this._form.querySelector(`#${input.id}-error`);
       error.textContent = '';
       input.classList.remove(this._inputInvalidClass);
