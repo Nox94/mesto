@@ -1,5 +1,6 @@
 import { FormValidator } from './FormValidator.js';
 import { Card } from './Card.js';
+import initialCards from './array_initialCards.js';
 const popupProfile = document.querySelector(".popup-profile"); //popup edit
 const popupCards = document.querySelector(".popup-cards"); //popup add cards
 const popupImage = document.querySelector(".popup-image"); //popup card image
@@ -39,43 +40,44 @@ const editProfileFormValid = new FormValidator(validationConfig, popupProfileSav
 const addCardFormValid = new FormValidator(validationConfig, popupCardElemSave);
 editProfileFormValid.enableValidation();
 addCardFormValid.enableValidation();
-const newCard = new Card(initialCards);
+
 
 
 
 //работа с карточками
 //создала массив с данными карточек - заголовок и изображение
-const initialCards = [
-  {
-    name: "Архыз",
-    link: "./images/arkhyz.jpg",
-  },
-  {
-    name: "Эльбрус",
-    link: "./images/elbrus.jpg",
-  },
-  {
-    name: "Карачаевск",
-    link: "./images/karachaevsk.jpg",
-  },
-  {
-    name: "Пятигорск",
-    link: "./images/pyatigorsk.jpg",
-  },
-  {
-    name: "Сочи",
-    link: "./images/sochi.jpg",
-  },
-  {
-    name: "Архыз",
-    link: "./images/arkhyz.jpg",
-  },
-];
+// const initialCards = [
+//   {
+//     name: "Архыз",
+//     link: "./images/arkhyz.jpg",
+//   },
+//   {
+//     name: "Эльбрус",
+//     link: "./images/elbrus.jpg",
+//   },
+//   {
+//     name: "Карачаевск",
+//     link: "./images/karachaevsk.jpg",
+//   },
+//   {
+//     name: "Пятигорск",
+//     link: "./images/pyatigorsk.jpg",
+//   },
+//   {
+//     name: "Сочи",
+//     link: "./images/sochi.jpg",
+//   },
+//   {
+//     name: "Архыз",
+//     link: "./images/arkhyz.jpg",
+//   },
+// ];
 
 initialCards.forEach((item) => {
-  cardConfigurator.name = item.name;
-  cardConfigurator.link = item.link;
-  addCard(cardsContainer, newCard.createCard());
+  data.name = item.name;
+  data.link = item.link;
+  const newCard = new Card(data, '#card-template', openPopupPictureHandler);
+  addCard(cardsContainer, newCard.generateCard());
 });
 
 //добавление карточки
@@ -97,13 +99,31 @@ function popupEscapeHandler(evt) {
   }
 }
 
-function openPopupPictureHandler(event) {
-  //попап карточки открывается по нажатию на картинку карточки
-  popupPicture.src = event.target.src; // event.target является тем объектом, на который произвели клик, в данном случае это картинка карточки, она присваивается как значение картинки попапа
-  popupPicture.alt = event.target.alt; //добавляет атрибут alt изображению попапа картинки карточки по названию карточки
-  const parentSearching = event.target.closest(".elements__card"); //находим в DOM родительский контейнер картинки — див со всеми элементами карточки и присваиваем его переменной
-  popupCapture.textContent = parentSearching.querySelector(".elements__card-heading").textContent; //берем текстовое содержимое переменной, а которой хранится подпись к картинке попапа и присваиваем ей значение заголовка карточки через поиск в родительском элементе — родителе карточки с помощью метода querySelector
-  openPopup(popupImage); //делаем попап видимым после того, как он получил в себя все данные
+// function openPopupPictureHandler(event) {
+//   // 1) попап карточки открывается по нажатию на картинку карточки
+//   popupPicture.src = event.target.src; 
+//   // 2) event.target является тем объектом, на который произвели клик, в данном случае это картинка карточки, она присваивается как значение картинки попапа
+//   popupPicture.alt = event.target.alt; 
+//   // 3) добавляет атрибут alt изображению попапа картинки карточки по названию карточки
+//   const parentSearching = event.target.closest(".elements__card"); 
+//   // 4) находим в DOM родительский контейнер картинки — див со всеми элементами карточки и присваиваем его переменной
+//   popupCapture.textContent = parentSearching.querySelector(".elements__card-heading").textContent; 
+//   // 5) берем текстовое содержимое переменной, а которой хранится подпись к картинке попапа и присваиваем ей значение заголовка карточки через поиск в родительском элементе — родителе карточки с помощью метода querySelector
+//   openPopup(popupImage); 
+//   // 6) делаем попап видимым после того, как он получил в себя все данные
+// }
+function openPopupPictureHandler(data) {
+  // 1) попап карточки открывается по нажатию на картинку карточки
+  popupPicture.src = data.src; 
+  // 2) event.target является тем объектом, на который произвели клик, в данном случае это картинка карточки, она присваивается как значение картинки попапа
+  popupPicture.alt = data.name; 
+  // 3) добавляет атрибут alt изображению попапа картинки карточки по названию карточки
+   
+  // 4) находим в DOM родительский контейнер картинки — див со всеми элементами карточки и присваиваем его переменной
+  popupCapture.textContent = data.name; 
+  // 5) берем текстовое содержимое переменной, а которой хранится подпись к картинке попапа и присваиваем ей значение заголовка карточки через поиск в родительском элементе — родителе карточки с помощью метода querySelector
+  openPopup(popupImage); 
+  // 6) делаем попап видимым после того, как он получил в себя все данные
 }
 
 // функция открытия попапов
@@ -136,10 +156,15 @@ function profileSubmitHandler(evt) {
 //ф-ция при нажатии на кнопку "создать" у попапа добавления карточки
 function сardSaveHandler(evt) {
   evt.preventDefault();
-  addCard(
-    cardsContainer,
-    createCard(formFieldHeading.value, formFieldLink.value, cardTemplate)
-  );
+  data.name = formFieldHeading.value;
+  data.link = formFieldLink.value;
+  const newCard = new Card(data, '#card-template', openPopupPictureHandler);
+  addCard(cardsContainer, newCard.generateCard());
+
+  // addCard(
+  //   cardsContainer,
+  //   createCard(formFieldHeading.value, formFieldLink.value, cardTemplate)
+  // );
   closeAnyPopup(popupCards);
   popupCardElemSave.reset();
 }
