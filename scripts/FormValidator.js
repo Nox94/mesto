@@ -42,7 +42,6 @@ export class FormValidator {
     });
 }
 
-
   enableValidation() { //запуск валидации (публичный)
       this._setEventListeners();
       this._form.addEventListener('submit', (evt) => {

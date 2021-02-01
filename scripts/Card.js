@@ -1,10 +1,6 @@
 export class Card {
-    constructor(data, cardSelector, openPopupPictureHandler) {
-        this._text = data.heading,
-        this._image = data.image,
-        this._likeButtonSelector = data.likeButton,
-        this._deleteButtonSelector = data.deleteButton,
-        this._openPopupPictureHandler = openPopupPictureHandler,
+    constructor(data, cardSelector, handlePopupPicOpening) {
+        this._handlePopupPicOpening = handlePopupPicOpening,
         this._name = data.name,
         this._link = data.link,
         this._cardSelector = cardSelector
@@ -27,25 +23,24 @@ export class Card {
     }
 
     //добавление лайка
-    _likeButtonHandler(event) {
+    _handleLikeButtonClick(event) {
         event.target.classList.toggle("elements__like-button_clicked");
     }
 
     //удаление карточки
-    _removeButtonHandler(event) {
+    _handleRemoveButtonClick(event) {
         event.target.closest(".elements__card").remove();
     }
 
     _setEventListeners() {
         console.log(this._image);
         //лайк
-        this._likeButton.addEventListener('click', this._likeButtonHandler);
+        this._likeButton.addEventListener('click', this._handleLikeButtonClick);
         //удаление карточки
-        this._deleteButton.addEventListener('click', this._removeButtonHandler);
+        this._deleteButton.addEventListener('click', this._handleRemoveButtonClick);
         // открытие попапа картинки
         this._image.addEventListener('click', () => {
-            this._openPopupPictureHandler({src: this._link, name: this._name});
+            this._handlePopupPicOpening({src: this._link, name: this._name});
         });
-       
     }
 }
