@@ -33,14 +33,13 @@ export class Card {
     }
 
     _setEventListeners() {
-        console.log(this._image);
         //лайк
         this._likeButton.addEventListener('click', this._handleLikeButtonClick);
         //удаление карточки
         this._deleteButton.addEventListener('click', this._handleRemoveButtonClick);
         // открытие попапа картинки
         this._image.addEventListener('click', () => {
-            this._handlePopupPicOpening({src: this._link, name: this._name});
+        this._handlePopupPicOpening({src: this._link, name: this._name});
         });
     }
 }
