@@ -23,7 +23,7 @@ export class FormValidator {
       this._hideError(input);
     }
   }
-  _setButtonState() { //проверка состояния кнопки сабмита (приватный)
+  setButtonState() { //проверка состояния кнопки сабмита (приватный)
     if (this._form.checkValidity()) {
       this._submitButton.classList.remove(this._buttonInvalidClass);
       this._submitButton.disabled = false;
@@ -37,7 +37,7 @@ export class FormValidator {
     this._inputsList.forEach((input) => {
         input.addEventListener('input', () => {
             this._checkInputValidity(input);
-            this._setButtonState();
+            this.setButtonState();
         });
     });
 }
@@ -47,6 +47,6 @@ export class FormValidator {
       this._form.addEventListener('submit', (evt) => {
           evt.preventDefault();
       });
-      this._setButtonState();
+      this.setButtonState();
   }
 }

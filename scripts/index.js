@@ -134,7 +134,7 @@ profileButtonEdit.addEventListener("click", () => {
 });
 
 profileButtonAdd.addEventListener("click", () => {
-  addCardFormValid._setButtonState();
+  addCardFormValid.setButtonState();
   openPopup(popupCards);
 });
 
