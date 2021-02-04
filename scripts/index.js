@@ -47,7 +47,6 @@ const editProfileFormValid = new FormValidator(
 const addCardFormValid = new FormValidator(validationConfig, popupCardElemSave);
 editProfileFormValid.enableValidation();
 addCardFormValid.enableValidation();
-editProfileFormValid._setButtonState();
 
 // создание нового экземпляра класса Card на каждый элемент массива
 initialCards.forEach((item) => {
@@ -77,7 +76,7 @@ function handlePopupEscaping(evt) {
   }
 }
 
-// обработчик ф-ции открытия попапов
+// обработчик ф-ции открытия попа картинки
 function handlePopupPicOpening(data) {
   popupPicture.src = data.src;
   popupPicture.alt = data.name;
@@ -129,7 +128,6 @@ popupClose.forEach((item) =>
 );
 
 profileButtonEdit.addEventListener("click", () => {
-  editProfileFormValid._setButtonState();
   formFieldName.value = profileHeading.textContent;
   formFieldAbout.value = profileSubheading.textContent;
   openPopup(popupProfile);
