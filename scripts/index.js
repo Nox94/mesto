@@ -1,6 +1,7 @@
 import { FormValidator } from "./FormValidator.js";
 import { Card } from "./Card.js";
 import initialCards from "./array_initialCards.js";
+import Section from './Section.js';
 const popupProfile = document.querySelector(".popup-profile"); //popup edit
 const popupCards = document.querySelector(".popup-cards"); //popup add cards
 const popupImage = document.querySelector(".popup-image"); //popup card image
@@ -48,13 +49,29 @@ const addCardFormValid = new FormValidator(validationConfig, popupCardElemSave);
 editProfileFormValid.enableValidation();
 addCardFormValid.enableValidation();
 
-// создание нового экземпляра класса Card на каждый элемент массива
-initialCards.forEach((item) => {
-  data.name = item.name;
-  data.link = item.link;
-  const newCard = new Card(data, "#card-template", handlePopupPicOpening);
-  addCard(cardsContainer, newCard.generateCard());
-});
+
+const cardsList = new Section({
+  data: initialCards,
+  renderer: (cardItem) => {
+    initialCards.forEach((item) => {
+      data.name = item.name;
+      data.link = item.link;
+      const newCard = new Card(data, "#card-template", handlePopupPicOpening);
+      addCard(cardsContainer, newCard.generateCard());
+    });
+  },
+},
+// cardListSection - это что вообще?
+);
+cardsList.addItem();
+
+// // создание нового экземпляра класса Card на каждый элемент массива
+// initialCards.forEach((item) => {
+//   data.name = item.name;
+//   data.link = item.link;
+//   const newCard = new Card(data, "#card-template", handlePopupPicOpening);
+//   addCard(cardsContainer, newCard.generateCard());
+// });
 
 // добавление карточки
 function addCard(container, element) {

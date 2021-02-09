@@ -1,0 +1,29 @@
+{
+  "name": "mesto",
+  "version": "1.0.0",
+  "description": "## Ссылка на проект:  https://nox94.github.io/mesto/.",
+  "main": "index.js",
+  "scripts": {
+    "build": "rm -rf dist && webpack --mode production",
+    "dev": "webpack serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nox94/mesto.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Nox94/mesto/issues"
+  },
+  "homepage": "https://github.com/Nox94/mesto#readme",
+  "devDependencies": {
+    "webpack": "^5.21.1",
+    "webpack-cli": "^4.5.0",
+    "webpack-dev-server": "^3.11.2"
+  },
+  "dependencies": {
+    "rimraf": "^3.0.2"
+  }
+}
