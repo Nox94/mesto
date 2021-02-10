@@ -2,17 +2,15 @@ import { FormValidator } from "./FormValidator.js";
 import { Card } from "./Card.js";
 import initialCards from "./array_initialCards.js";
 import Section from './Section.js';
+import Popup from './Popup.js';
 const popupProfile = document.querySelector(".popup-profile"); //popup edit
 const popupCards = document.querySelector(".popup-cards"); //popup add cards
 const popupImage = document.querySelector(".popup-image"); //popup card image
-const popupClose = document.querySelectorAll(".popup__close");
 const popupProfileSave = document.querySelector("#popupProfileSave"); //форма ред-я профиля
 const popupCardElemSave = document.querySelector("#popupCardElemSave"); //форма добавления новой карточки на страницу
 const formFieldName = document.querySelector(".popup__form-row_type_name");
 const formFieldAbout = document.querySelector(".popup__form-row_type_about");
-const formFieldHeading = document.querySelector(
-  ".popup__form-row_type_heading"
-);
+const formFieldHeading = document.querySelector(".popup__form-row_type_heading");
 const formFieldLink = document.querySelector(".popup__form-row_type_link");
 const profileHeading = document.querySelector(".profile__heading");
 const profileSubheading = document.querySelector(".profile__subheading");
@@ -76,20 +74,20 @@ cardsList.renderAllElements();
 //   container.prepend(element); //добавила карточку в начало контейнера
 // }
 
-// обработчик закрытия попапа
-function handlePopupClosing(evt) {
-  if (evt.target === evt.currentTarget) {
-    closeAnyPopup(evt.currentTarget);
-  }
-}
+// // обработчик закрытия попапа
+// function handlePopupClosing(evt) {
+//   if (evt.target === evt.currentTarget) {
+//     closeAnyPopup(evt.currentTarget);
+//   }
+// }
 
-// обработчик по нажатию на крестик
-function handlePopupEscaping(evt) {
-  if (evt.key === "Escape") {
-    const active = evt.currentTarget.querySelector(".popup_opened");
-    closeAnyPopup(active);
-  }
-}
+// // обработчик по нажатию на крестик
+// function handlePopupEscaping(evt) {
+//   if (evt.key === "Escape") {
+//     const active = evt.currentTarget.querySelector(".popup_opened");
+//     closeAnyPopup(active);
+//   }
+// }
 
 // обработчик ф-ции открытия попа картинки
 function handlePopupPicOpening(data) {
@@ -99,24 +97,24 @@ function handlePopupPicOpening(data) {
   openPopup(popupImage);
 }
 
-// функция открытия попапов
-function openPopup(modal) {
-  document.addEventListener("keydown", handlePopupEscaping);
-  modal.addEventListener("click", handlePopupClosing);
-  modal.classList.add("popup_opened");
-}
+// // функция открытия попапов
+// function openPopup(modal) {
+//   document.addEventListener("keydown", handlePopupEscaping);
+//   modal.addEventListener("click", handlePopupClosing);
+//   modal.classList.add("popup_opened");
+// }
 
-// обработчик закрытия попапов по событию
-function handleAnyPopupClosing(event) {
-  const closeBtn = event.target;
-  closeAnyPopup(closeBtn.closest(".popup"));
-}
-//ф-ция закрытия попапов
-function closeAnyPopup(popupWindow) {
-  document.removeEventListener("keydown", handlePopupEscaping);
-  popupWindow.removeEventListener("click", handlePopupClosing);
-  popupWindow.classList.remove("popup_opened");
-}
+// // обработчик закрытия попапов по событию
+// function handleAnyPopupClosing(event) {
+//   const closeBtn = event.target;
+//   closeAnyPopup(closeBtn.closest(".popup"));
+// }
+// //ф-ция закрытия попапов
+// function closeAnyPopup(popupWindow) {
+//   document.removeEventListener("keydown", handlePopupEscaping);
+//   popupWindow.removeEventListener("click", handlePopupClosing);
+//   popupWindow.classList.remove("popup_opened");
+// }
 
 //ф-ция при нажатии на кнопку "сохранить" у попапа редактирования профиля
 function handleProfileSubmitting(evt) {
@@ -138,9 +136,9 @@ function handleCardSaving(evt) {
 }
 
 // слушатели событий
-popupClose.forEach((item) =>
-  item.addEventListener("click", handleAnyPopupClosing)
-);
+// popupClose.forEach((item) =>
+//   item.addEventListener("click", handleAnyPopupClosing)
+// );
 
 profileButtonEdit.addEventListener("click", () => {
   formFieldName.value = profileHeading.textContent;
