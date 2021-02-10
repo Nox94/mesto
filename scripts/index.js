@@ -49,21 +49,19 @@ const addCardFormValid = new FormValidator(validationConfig, popupCardElemSave);
 editProfileFormValid.enableValidation();
 addCardFormValid.enableValidation();
 
-
 const cardsList = new Section({
   data: initialCards,
   renderer: (cardItem) => {
-    initialCards.forEach((item) => {
-      data.name = item.name;
-      data.link = item.link;
+      data.name = cardItem.name;
+      data.link = cardItem.link;
       const newCard = new Card(data, "#card-template", handlePopupPicOpening);
-      addCard(cardsContainer, newCard.generateCard());
-    });
-  },
+      cardsList.addItem(newCard.generateCard());
+    }
 },
-// cardListSection - это что вообще?
-);
-cardsList.addItem();
+    '.elements'
+  );
+cardsList.renderAllElements();
+
 
 // // создание нового экземпляра класса Card на каждый элемент массива
 // initialCards.forEach((item) => {
@@ -73,10 +71,10 @@ cardsList.addItem();
 //   addCard(cardsContainer, newCard.generateCard());
 // });
 
-// добавление карточки
-function addCard(container, element) {
-  container.prepend(element); //добавила карточку в начало контейнера
-}
+// // добавление карточки
+// function addCard(container, element) {
+//   container.prepend(element); //добавила карточку в начало контейнера
+// }
 
 // обработчик закрытия попапа
 function handlePopupClosing(evt) {
