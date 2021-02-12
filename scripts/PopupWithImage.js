@@ -1,16 +1,15 @@
 import Popup from "./Popup.js";
-
 export default class PopupWithImage extends Popup {
-  constructor(popupSelector) {
-    super(popupSelector);
-    this._popupPicture = this._popupSelector.querySelector(".popup__picture");
-    this._popupCapture = this._popupSelector.querySelector(".popup__capture");
+  constructor(popup) {
+    super(popup);
+    this._popupPicture = this._popup.querySelector(".popup__picture");
+    this._popupCapture = this._popup.querySelector(".popup__capture");
   }
-  open(data, modal) {
+  open(data) {
     this._popupPicture.src = data.src;
     this._popupPicture.alt = data.name;
     this._popupCapture.textContent = data.name;
-    super.open(modal);
+    super.open();
     super.setEventListeners();
   }
 }
@@ -36,9 +35,9 @@ export default class PopupWithImage extends Popup {
 //   openPopup(popupImage);
 //   // 6) делаем попап видимым после того, как он получил в себя все данные
 // }
- // //класс PopupWithImage:
-  // наследуется от Popup, вызывает его конструктор, в который передает нужный параметр - смотреть в сторону super.
-  // используя логику полиморфизма надо перезаписать метод open, сначала сделать в нем то что описано в ТЗ, а потом вызвать метод родительского класса чтобы открыть попап
+// //класс PopupWithImage:
+// наследуется от Popup, вызывает его конструктор, в который передает нужный параметр - смотреть в сторону super.
+// используя логику полиморфизма надо перезаписать метод open, сначала сделать в нем то что описано в ТЗ, а потом вызвать метод родительского класса чтобы открыть попап
 
-  // Этот класс должен перезаписывать родительский метод open.
-  // В методе open класса PopupWithImage нужно вставлять в попап картинку и атрибут src изображения и подпись к картинке.
+// Этот класс должен перезаписывать родительский метод open.
+// В методе open класса PopupWithImage нужно вставлять в попап картинку и атрибут src изображения и подпись к картинке.

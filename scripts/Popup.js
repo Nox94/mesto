@@ -1,19 +1,19 @@
 export default class Popup {
   // должен содержать общие для всех попапов вещи, без частностей
-  constructor(popupSelector) {
+  constructor(popup) {
     //принимает единственный параметр - селектор попапа
-    this._popupSelector = document.querySelector(popupSelector);
+    this._popup = document.querySelector(popup);
   }
-  open(modal) {
+  open() {
     //содержит публичные методы open и close
     document.addEventListener("keydown", this._handleEscClick);
-    modal.addEventListener("click", this._handlePopupClosing);
-    modal.classList.add("popup_opened");
+    this._popup.addEventListener("click", this._handlePopupClosing);
+    this._popup.classList.add("popup_opened");
   }
-  close(modal) {
+  close() {
     document.removeEventListener("keydown", this._handleEscClick);
-    modal.removeEventListener("click", this._handlePopupClosing);
-    modal.classList.remove("popup_opened");
+    this._popup.removeEventListener("click", this._handlePopupClosing);
+    this._popup.classList.remove("popup_opened");
   }
 
   _handleEscClick = (evt) => {

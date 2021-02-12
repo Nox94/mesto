@@ -4,6 +4,7 @@ import initialCards from "./array_initialCards.js";
 import Section from './Section.js';
 import Popup from './Popup.js';
 import PopupWithImage from './PopupWithImage.js';
+import PopupWithForm from './PopupWithForm.js';
 const popupProfile = document.querySelector(".popup-profile"); //popup edit
 const popupCards = document.querySelector(".popup-cards"); //popup add cards
 const popupImage = document.querySelector(".popup-image"); //popup card image
@@ -62,9 +63,51 @@ const cardsList = new Section({
   );
 cardsList.renderAllElements();
 
-const popupEditProfile = new Popup('#popupProfileSave');
+const popupEditProfile = new PopupWithForm('#popupProfileSave', handleProfileSubmitting);
 const popupWithImage = new PopupWithImage('.popup-image');
-const popupCardEdit = new Popup('.popup-cards');
+// const popupCardEdit = new Popup('.popup-cards');
+
+// обработчик ф-ции открытия попапа картинки
+function handlePopupPicOpening(data) {
+  popupPicture.src = data.src;
+  popupPicture.alt = data.name;
+  popupCapture.textContent = data.name;
+  popupWithImage.open(data, popupImage);
+}
+
+//ф-ция при нажатии на кнопку "сохранить" у попапа редактирования профиля
+function handleProfileSubmitting(evt) {
+  evt.preventDefault();
+  profileHeading.textContent = formFieldName.value;
+  profileSubheading.textContent = formFieldAbout.value;
+  popupEditProfile.close(popupProfile);
+}
+
+//ф-ция при нажатии на кнопку "создать" у попапа добавления карточки
+function handleCardSaving(evt) {
+  evt.preventDefault();
+  data.name = formFieldHeading.value;
+  data.link = formFieldLink.value;
+  const newCard = new Card(data, "#card-template", handlePopupPicOpening);
+  addCard(cardsContainer, newCard.generateCard());
+  closeAnyPopup(popupCards);
+  popupCardElemSave.reset();
+}
+
+profileButtonEdit.addEventListener("click", () => {
+  formFieldName.value = profileHeading.textContent;
+  formFieldAbout.value = profileSubheading.textContent;
+  popupEditProfile.open(popupProfile);
+});
+
+profileButtonAdd.addEventListener("click", () => {
+  addCardFormValid.setButtonState();
+  popupCardEdit.open(popupCards);
+});
+
+popupCardElemSave.addEventListener("submit", handleCardSaving);
+
+
 // // создание нового экземпляра класса Card на каждый элемент массива
 // initialCards.forEach((item) => {
 //   data.name = item.name;
@@ -93,13 +136,6 @@ const popupCardEdit = new Popup('.popup-cards');
 //   }
 // }
 
-// обработчик ф-ции открытия попапа картинки
-function handlePopupPicOpening(data) {
-  popupPicture.src = data.src;
-  popupPicture.alt = data.name;
-  popupCapture.textContent = data.name;
-  popupWithImage.open(data, popupImage);
-}
 
 // // функция открытия попапов
 // function openPopup(modal) {
@@ -119,41 +155,7 @@ function handlePopupPicOpening(data) {
 //   popupWindow.removeEventListener("click", handlePopupClosing);
 //   popupWindow.classList.remove("popup_opened");
 // }
-
-//ф-ция при нажатии на кнопку "сохранить" у попапа редактирования профиля
-function handleProfileSubmitting(evt) {
-  evt.preventDefault();
-  profileHeading.textContent = formFieldName.value;
-  profileSubheading.textContent = formFieldAbout.value;
-  popupEditProfile.close(popupProfile);
-}
-
-//ф-ция при нажатии на кнопку "создать" у попапа добавления карточки
-function handleCardSaving(evt) {
-  evt.preventDefault();
-  data.name = formFieldHeading.value;
-  data.link = formFieldLink.value;
-  const newCard = new Card(data, "#card-template", handlePopupPicOpening);
-  addCard(cardsContainer, newCard.generateCard());
-  closeAnyPopup(popupCards);
-  popupCardElemSave.reset();
-}
-
 // слушатели событий
 // popupClose.forEach((item) =>
 //   item.addEventListener("click", handleAnyPopupClosing)
 // );
-
-profileButtonEdit.addEventListener("click", () => {
-  formFieldName.value = profileHeading.textContent;
-  formFieldAbout.value = profileSubheading.textContent;
-  popupEditProfile.open(popupProfile);
-});
-
-profileButtonAdd.addEventListener("click", () => {
-  addCardFormValid.setButtonState();
-  popupCardEdit.open(popupCards);
-});
-
-popupProfileSave.addEventListener("submit", handleProfileSubmitting);
-popupCardElemSave.addEventListener("submit", handleCardSaving);
