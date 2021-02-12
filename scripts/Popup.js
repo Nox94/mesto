@@ -16,7 +16,7 @@ export default class Popup {
     modal.classList.remove("popup_opened");
   }
 
-  _handleEscClick(evt) {
+  _handleEscClick = (evt) => {
     //Содержит приватный метод _handleEscClose, который содержит логику закрытия попапа клавишей Esc
     if (evt.key === "Escape") {
       const active = evt.currentTarget.querySelector(".popup_opened");
@@ -24,7 +24,7 @@ export default class Popup {
     }
   }
 
-  _handlePopupClosing(event) {
+  _handlePopupClosing = (event) => {
     // обработчик закрытия попапов по событию
     const closeBtn = event.target;
     this.close(closeBtn.closest(".popup"));
