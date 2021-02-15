@@ -1,9 +1,10 @@
 export class Card {
-  constructor({ data, handlePopupPicOpening }, cardSelector) {
-    (this._handlePopupPicOpening = handlePopupPicOpening),
-    (this._name = data.name),
-    (this._link = data.link),
-    (this._cardSelector = cardSelector);
+  constructor({ data,handler}, cardSelector) {
+    this._handler = handler;
+    this._name = data.name;
+    this._link = data.link;
+    this._cardSelector = cardSelector;
+    //this._handlePopupPicOpening = this._handlePopupPicOpening.bind(this)
   }
 
   _getTemplate() {
@@ -15,6 +16,7 @@ export class Card {
   }
 
   generateCard() {
+    console.log('show handler:'+this._handler)
     this._element = this._getTemplate();
     this._image = this._element.querySelector(".elements__card-img");
     this._element.querySelector(".elements__card-img").src = this._link;
@@ -46,7 +48,7 @@ export class Card {
     this._deleteButton.addEventListener("click", this._handleRemoveButtonClick);
     // открытие попапа картинки
     this._image.addEventListener("click", () => {
-      this._handlePopupPicOpening({ src: this._link, name: this._name });
+      this._handler({ src: this._link, name: this._name });
     });
   }
 }
