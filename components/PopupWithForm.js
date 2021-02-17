@@ -8,12 +8,10 @@ export default class PopupWithForm extends Popup {
   }
   _getInputValues() {
     this._inputValues = {};
-    //console.log(this._inputValues)
     this._formFields.forEach((input) => (
       this._inputValues[input.name] = input.value
       )
     );
-    console.log('show input values:'); console.log(this._inputValues)
     return this._inputValues;
   }
 
@@ -29,6 +27,10 @@ export default class PopupWithForm extends Popup {
       input.value = data[input.name];
     });
   }
+
+  formReset(){
+    this._form.reset()
+    }
 
   close() {
     super.close();

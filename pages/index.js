@@ -10,12 +10,9 @@ import PopupWithForm from "../components/PopupWithForm.js";
 
 const popupProfileSave = document.querySelector("#popupProfileSave"); //форма ред-я профиля
 const popupCardElemSave = document.querySelector("#popupCardElemSave"); //форма добавления новой карточки на страницу
-
 const profileButtonEdit = document.querySelector(".profile__button-edit");
 const profileButtonAdd = document.querySelector(".profile__button-add");
 
-const popupPicture = document.querySelector(".popup__picture");
-const popupCapture = document.querySelector(".popup__capture");
 
 // данные форм для передачи их классу FormValidator
 const validationConfig = {
@@ -77,9 +74,6 @@ const userInfo = new UserInfo({
 
 // обработчик ф-ции открытия попапа картинки
 function handlePopupPicOpening(data) {
-  popupPicture.src = data.src;
-  popupPicture.alt = data.name;
-  popupCapture.textContent = data.name;
   popupWithImage.open(data);
 }
 
@@ -105,12 +99,13 @@ function handleCardSaving(dataSet) {
 }
 
 profileButtonEdit.addEventListener("click", () => {
-  //console.log("text");
+  editProfileFormValid.hideErrors();
   popupEditProfile.setInputValues(userInfo.getUserInfo());
   popupEditProfile.open();
 });
 
 profileButtonAdd.addEventListener("click", () => {
-  addCardFormValid.setButtonState();
+  addCardFormValid.hideErrors();
+  popupAddCard.formReset();
   popupAddCard.open();
 });
