@@ -42,32 +42,12 @@
       <h2 class="popup__heading">Редактировать профиль</h2>
       <form class="popup__form" id="popupProfileSave" action="#" name="Form">
         <fieldset class="popup__form-fieldset">
-          <input
-          class="popup__form-row popup__form-row_type_name"
-          type="text"
-          name="Name"
-          placeholder="Имя"
-          minlength="2"
-          maxlength="40"
-          autocomplete="off"
-          id="name-profile"
-          novalidate
-          required>
-          <span
-          id="name-profile-error"
-          class="error">
-        </span>
-          <input
-          class="popup__form-row popup__form-row_type_about"
-          id="subname-profile"
-          type="text"
-          name="About"
-          placeholder="О себе"
-          required
-          minlength="2"
-          maxlength="200"
-          autocomplete="off"
-          novalidate>
+          <input class="popup__form-row popup__form-row_type_name" type="text" name="Name" placeholder="Имя"
+            minlength="2" maxlength="40" autocomplete="off" id="name-profile" novalidate required>
+          <span id="name-profile-error" class="error">
+          </span>
+          <input class="popup__form-row popup__form-row_type_about" id="subname-profile" type="text" name="About"
+            placeholder="О себе" required minlength="2" maxlength="200" autocomplete="off" novalidate>
           <span id="subname-profile-error" class="error"></span>
         </fieldset>
         <button class="popup__save" type="submit" aria-label="Сохранить" name="submit">Сохранить</button>
@@ -100,19 +80,30 @@
       <p class="popup__capture"></p>
     </div>
   </div>
+  <!-- попап удаления карточки -->
+  <div class="popup popup-remove popup_opened">
+    <div class="popup__content">
+      <button type="button" class="popup__close" aria-label="Закрыть"></button>
+    <div class="popup__wrapper">
+      <h2 class="popup__heading">Вы уверены?</h2>
+      <button type="button" class="popup__save popup__save_confirm" type="submit" name="submit" aria-label="Согласиться">Да</button>
+    </div>
+  </div>
+  </div>
   <!--шаблон для карточек мест-->
   <template id="card-template">
     <div class="elements__card">
       <img class="elements__card-img" src="#" alt="#">
       <div class="elements__wrapper">
         <h2 class="elements__card-heading"></h2>
-        <button class="elements__like-button" type="button"></button>
+        <div class="elements__another-wrapper">
+          <button class="elements__like-button" type="button"></button>
+          <div class="elements__counter"></div>
+        </div>
       </div>
       <button class="elements__remove-button" type="button"></button>
     </div>
   </template>
-  <!--js-->
-  <!-- <script type="module" src="./scripts/index.js"></script> -->
 </body>
 
 </html>

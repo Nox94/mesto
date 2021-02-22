@@ -18,9 +18,9 @@
   }
 }
 @media screen and (min-width: 720px) {
- .popup__heading {
-  font-size: 24px;
- }
+  .popup__heading {
+    font-size: 24px;
+  }
 }
 
 

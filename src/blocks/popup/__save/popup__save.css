@@ -8,6 +8,12 @@
   cursor: pointer;
   padding: 14px 82px 14px 82px;
   transition: opacity 0.2s;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  text-align: center;
+  color: #FFFFFF;
 }
 
 .popup__save:hover {
@@ -17,6 +23,7 @@
 @media screen and (min-width: 1024px) {
   .popup__save {
     margin: 0;
+    font-size: 18px;
   }
 }
 
