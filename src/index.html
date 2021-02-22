@@ -16,7 +16,7 @@
   <!--profile-->
   <section class="profile">
     <div class="profile__wrapper-fullscreen">
-      <img class="profile__avatar" src="<%=require('./images/kusto.png')%>" alt="Жак-Ив Кусто.">
+      <a class="profile__pencil-icon"><img class="profile__avatar" src="<%=require('./images/kusto.png')%>" alt="Жак-Ив Кусто."></a>
       <div class="profile__wrapper-for-rows">
         <div class="profile__wrapper">
           <!--для того, чтобы можно было вместе позиционировать кнопку редактирования профиля и строку с заголовком-->
@@ -81,7 +81,7 @@
     </div>
   </div>
   <!-- попап удаления карточки -->
-  <div class="popup popup-remove popup_opened">
+  <div class="popup popup-remove">
     <div class="popup__content">
       <button type="button" class="popup__close" aria-label="Закрыть"></button>
     <div class="popup__wrapper">
