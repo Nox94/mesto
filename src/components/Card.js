@@ -16,7 +16,7 @@ export class Card {
   }
 
   generateCard() {
-    console.log('show handler:'+this._handler)
+    // console.log('show handler:'+this._handler)
     this._element = this._getTemplate();
     this._image = this._element.querySelector(".elements__card-img");
     this._element.querySelector(".elements__card-img").src = this._link;

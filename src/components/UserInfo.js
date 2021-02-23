@@ -1,23 +1,21 @@
 export default class UserInfo {
 //отвечает за управление отображением информации о пользователе на странице.
-  constructor({userName, userInfo}){
+  constructor({userName, userInfo, userAvatar}){
 this._userName = document.querySelector(userName),
-this._userInfo = document.querySelector(userInfo)
+this._userInfo = document.querySelector(userInfo),
+this._userAvatar = document.querySelector(userAvatar)
+
   }
   getUserInfo(){
-    //название ключей объекта берутся из аттрибута name
-    // у инпутов формы в html
-    return {Name: this._userName.textContent, About: this._userInfo.textContent}
+    //название ключей объекта берутся из атрибута name у инпутов формы в html
+    return {name: this._userName.textContent, about: this._userInfo.textContent, avatar: this._userAvatar.src, _id: this._id}
   }
-  // setUserInfo({Name, About}){
-  //   this._userName.textContent = Name,
-  //   this._userInfo.textContent = About
-  // }
 
   setUserInfo(data){
-    this._userName.textContent = data.Name;
-    this._userInfo.textContent = data.About
+    this._userName.textContent = data.name;
+    this._userInfo.textContent = data.about;
+    this._userAvatar.src = data.avatar;
+    this._id = data._id;
+
   }
 }
-
-
