@@ -90,6 +90,22 @@
     </div>
   </div>
   </div>
+<!-- попап смены аватарки -->
+  <div class="popup popup-changeAvatar">
+    <div class="popup__content">
+      <button type="button" class="popup__close" aria-label="Закрыть"></button>
+      <h2 class="popup__heading">Обновить аватар</h2>
+      <form class="popup__form" id="popupChangeAvatar" action="#" name="Form">
+        <fieldset class="popup__form-fieldset">
+          <input class="popup__form-row popup__form-row_type_url" type="url" name="Url" placeholder="Введите адрес"
+            minlength="8" maxlength="40" autocomplete="off" id="url-avatar" novalidate required>
+          <span id="url-avatar-error" class="error">
+          </span>
+        </fieldset>
+        <button class="popup__save" type="submit" aria-label="Сохранить" name="submit">Сохранить</button>
+      </form>
+    </div>
+  </div>
   <!--шаблон для карточек мест-->
   <template id="card-template">
     <div class="elements__card">
