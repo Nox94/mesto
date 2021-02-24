@@ -36,6 +36,6 @@ export default class Popup {
     //console.log(this._popup)
     this._popup.addEventListener("click", (evt) => this._handlePopupClosing(evt));
     //Содержит публичный метод setEventListeners, он добавляет слушатель клика иконке закрытия попапа
-this._closeBtn.addEventListener("click", this.close);
+    this._closeBtn.addEventListener("click", this.close);
   }
 }

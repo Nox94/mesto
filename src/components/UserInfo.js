@@ -8,7 +8,18 @@ this._userAvatar = document.querySelector(userAvatar)
   }
   getUserInfo(){
     //название ключей объекта берутся из атрибута name у инпутов формы в html
-    return {name: this._userName.textContent, about: this._userInfo.textContent, avatar: this._userAvatar.src, _id: this._id}
+    console.log({
+      name: this._userName.textContent, 
+      about: this._userInfo.textContent, 
+      avatar: this._userAvatar.src, 
+      _id: this._id}
+  )
+  
+    return {
+      name: this._userName.textContent, 
+      about: this._userInfo.textContent, 
+      avatar: this._userAvatar.src, 
+      _id: this._id}
   }
 
   setUserInfo(data){
@@ -16,6 +27,5 @@ this._userAvatar = document.querySelector(userAvatar)
     this._userInfo.textContent = data.about;
     this._userAvatar.src = data.avatar;
     this._id = data._id;
-
   }
 }
