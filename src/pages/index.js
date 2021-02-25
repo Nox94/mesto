@@ -7,12 +7,14 @@ import Api from "../components/Api.js";
 import UserInfo from "../components/UserInfo.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
+import Popup from "../components/Popup";
 
 const popupProfileSave = document.querySelector("#popupProfileSave"); //форма ред-я профиля
 const popupCardElemSave = document.querySelector("#popupCardElemSave"); //форма добавления новой карточки на страницу
 const profileButtonEdit = document.querySelector(".profile__button-edit");
 const profileButtonAdd = document.querySelector(".profile__button-add");
 const changeAvatarIcon = document.querySelector('.profile__pencil-icon');
+const trashBeenButton = document.querySelector('.popup__save_confirm');
 
 // данные форм для передачи их классу FormValidator
 const validationConfig = {
@@ -55,11 +57,15 @@ const cardsList = new Section(
     renderer: (cardItem) => {
       data.name = cardItem.name;
       data.link = cardItem.link;
-      const newCard = new Card(
-        { data: data, handler: handlePopupPicOpening },
-        "#card-template"
-      );
-      cardsList.addItem(newCard.generateCard());
+      // const newCard = new Card(
+      //   { 
+      //     data: data, 
+      //     handlerImg: handlePopupPicOpening, 
+      //     handlerDel: handleCardRemoving },
+      //   "#card-template"
+      // );
+      // cardsList.addItem(newCard.generateCard());
+      cardsList.addItem(createCard(data))
     },
   },
   ".elements"
@@ -79,6 +85,11 @@ const popupAddCard = new PopupWithForm(".popup-cards", handleCardSaving);
 popupAddCard.setEventListeners();
 const popupChangeAvatar = new PopupWithForm('.popup-changeAvatar', handleAvatarSubmitting)
 popupChangeAvatar.setEventListeners();
+const popupToDelete = new Popup('.popup-remove');
+popupToDelete.setEventListeners();
+console.log(popupToDelete);
+
+
 //создание экземпляра класса userInfo,
 //отсюда приходят данные для инпутов в попап редактирования профиля, из селекторов
 const userInfo = new UserInfo({
@@ -86,25 +97,27 @@ const userInfo = new UserInfo({
   userInfo: ".profile__subheading",
   userAvatar: ".profile__avatar",
 });
-console.log(userInfo);
 
+
+function handleCardRemoving(currentCard) {
+  currentCard.remove();
+  popupToDelete.close();
+}
 
 //при нажатии на кнопку "сохранить" у попапа смены аватара
-function handleAvatarSubmitting(data){
-  // api.changeUserAvatar();
-  // popupChangeAvatar.setInputValues(data);
+function handleAvatarSubmitting(data) {
   api
-  .changeUserAvatar(data)
-  .then((res) => {
-    console.log(res);
-    return res.json();
-  })
-  .then((result) => {
-    userInfo.setUserInfo({avatar: result.avatar});
-    console.log(result);
-    popupChangeAvatar.close();
-  })
-  .catch((err) => console.log(err));
+    .changeUserAvatar(data)
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+    })
+    .then((result) => {
+      userInfo.setUserInfo({ avatar: result.avatar });
+      popupChangeAvatar.close();
+    })
+    .catch((err) => console.log(err));
   popupChangeAvatar.close();
 }
 
@@ -118,29 +131,38 @@ function handleProfileSubmitting(data) {
   api
     .saveUserInfo(data)
     .then((res) => {
-      console.log(res);
-      return res.json();
+      if (res.ok) {
+        return res.json();
+      }
     })
     .then((result) => {
       userInfo.setUserInfo(result);
-      console.log(result);
       popupEditProfile.close();
     })
     .catch((err) => console.log(err));
 }
 
+function createCard(data){
+  const newCard = new Card(
+    { data: data, handlerImg: handlePopupPicOpening, handlerDel: handleCardRemoving },
+    "#card-template"
+  );
+  return newCard.generateCard()
+}
 //ф-ция при нажатии на кнопку "создать" у попапа добавления карточки
 function handleCardSaving(dataSet) {
   data.name = dataSet.Heading;
   data.link = dataSet.Link;
-  const newCard = new Card(
-    { data: data, handler: handlePopupPicOpening },
-    "#card-template"
-  );
-  cardsList.addItem(newCard.generateCard());
+  // const newCard = new Card(
+  //   { data: data, handlerImg: handlePopupPicOpening, handlerDel: handleCardRemoving },
+  //   "#card-template"
+  // );
+  // cardsList.addItem(newCard.generateCard());
+  cardsList.addItem(createCard(data))
   popupAddCard.close();
 }
 
+//открыть попап смены аватара
 changeAvatarIcon.addEventListener('click', () => {
   popupChangeAvatar.setEventListeners();
   popupChangeAvatar.setInputValues(userInfo.getUserInfo());
@@ -159,6 +181,10 @@ profileButtonAdd.addEventListener("click", () => {
   popupAddCard.formReset();
   popupAddCard.open();
 });
+//открыть попап подтверждения удаления
+trashBeenButton.addEventListener('click', () => {
+  popupToDelete.open();
+})
 
 //получаем на страницу данные о пользователе с сервера методом класса Api
 api
@@ -166,9 +192,8 @@ api
   .then((res) => res.json())
   .then((result) => {
     userInfo.setUserInfo(result);
-    console.log(result);
   });
-  
+
 //получение карточек с сервера
 api
   .getTheCards()

@@ -10,12 +10,12 @@ export default class PopupWithForm extends Popup {
     this._inputValues = {}; //значение текущих полей = объекту
     this._formFields.forEach((input) => ( //значение ключа имени каждого инпута = его значению  
       this._inputValues[input.name] = input.value
-      )
+    )
     );
     return this._inputValues; //возврат значений инпутов
   }
 
-  setEventListeners() { 
+  setEventListeners() {
     this._popup.addEventListener("submit", () => // слушатель по сабмиту на текущий попап
       this._handleSubmitting(this.getInputValues())//выполняется переданная ф-ция обработчик
     );//аргументом ей передается метод получения полей инпутов (?) 
@@ -29,9 +29,9 @@ export default class PopupWithForm extends Popup {
     });
   }
 
-  formReset(){
+  formReset() {
     this._form.reset()
-    }
+  }
 
   close() {
     super.close();

@@ -1,10 +1,13 @@
 export class Card {
-  constructor({ data,handler}, cardSelector) {
-    this._handler = handler;
+  constructor({ data, handlerImg, handlerDel }, cardSelector) {
+    this._handler = handlerImg;
+    this._handlerDelete = handlerDel;
+    this._handleRemoveButtonClick
+      = this._handleRemoveButtonClick.bind(this);
+    this._handleLikeButtonClick = this._handleLikeButtonClick.bind(this)
     this._name = data.name;
     this._link = data.link;
     this._cardSelector = cardSelector;
-    //this._handlePopupPicOpening = this._handlePopupPicOpening.bind(this)
   }
 
   _getTemplate() {
@@ -16,7 +19,6 @@ export class Card {
   }
 
   generateCard() {
-    // console.log('show handler:'+this._handler)
     this._element = this._getTemplate();
     this._image = this._element.querySelector(".elements__card-img");
     this._element.querySelector(".elements__card-img").src = this._link;
@@ -38,17 +40,20 @@ export class Card {
 
   //удаление карточки
   _handleRemoveButtonClick(event) {
-    event.target.closest(".elements__card").remove();
+    const currentCard = event.target.closest(".elements__card");
+    console.log(this._handlerDelete);
+    this._handlerDelete(currentCard);
   }
 
   _setEventListeners() {
     //лайк
     this._likeButton.addEventListener("click", this._handleLikeButtonClick);
-    //удаление карточки
+    //подтверждение удаления карточки
     this._deleteButton.addEventListener("click", this._handleRemoveButtonClick);
     // открытие попапа картинки
     this._image.addEventListener("click", () => {
       this._handler({ src: this._link, name: this._name });
     });
+
   }
 }

@@ -1,5 +1,4 @@
 export default class Popup {
-  // должен содержать общие для всех попапов вещи, без частностей
   constructor(popup) {
     //принимает единственный параметр - селектор попапа
     this._popup = document.querySelector(popup);
@@ -31,10 +30,9 @@ export default class Popup {
       this.close();
     }
   }
-
+//Содержит публичный метод setEventListeners, он добавляет слушатель клика иконке закрытия попапа
   setEventListeners() {
     this._popup.addEventListener("click", (evt) => this._handlePopupClosing(evt));
-    //Содержит публичный метод setEventListeners, он добавляет слушатель клика иконке закрытия попапа
     this._closeBtn.addEventListener("click", this.close);
   }
 }
