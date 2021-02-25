@@ -1,4 +1,4 @@
-import { data } from "autoprefixer";
+// import { data } from "autoprefixer";
 
 export default class Api {
   constructor(url, headers) {

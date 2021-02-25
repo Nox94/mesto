@@ -1,7 +1,7 @@
 import "./index.css";
 import { FormValidator } from "../components/FormValidator.js";
 import { Card } from "../components/Card.js";
-import initialCards from "../components/array_initialCards.js";
+// import initialCards from "../components/array_initialCards.js";
 import Section from "../components/Section.js";
 import Api from "../components/Api.js";
 import UserInfo from "../components/UserInfo.js";
@@ -90,7 +90,7 @@ console.log(userInfo);
 
 
 //при нажатии на кнопку "сохранить" у попапа смены аватара
-function handleAvatarSubmitting(){
+function handleAvatarSubmitting(data){
   // api.changeUserAvatar();
   // popupChangeAvatar.setInputValues(data);
   api
@@ -100,7 +100,7 @@ function handleAvatarSubmitting(){
     return res.json();
   })
   .then((result) => {
-    userInfo.setUserInfo(result);
+    userInfo.setUserInfo({avatar: result.avatar});
     console.log(result);
     popupChangeAvatar.close();
   })

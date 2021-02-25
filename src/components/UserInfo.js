@@ -15,10 +15,13 @@ this._userAvatar = document.querySelector(userAvatar)
       _id: this._id}
   }
 
-  setUserInfo(data){
-    this._userName.textContent = data.name;
-    this._userInfo.textContent = data.about;
-    this._userAvatar.src = data.avatar;
-    this._id = data._id;
+  setUserInfo({name, about, avatar, _id}){
+    this._userName.textContent = name ? name : this._userName.textContent;
+    this._userInfo.textContent = about ? about : this._userInfo.textContent;
+    this._userAvatar.src = avatar ? avatar : this._userAvatar.src; 
+    this._id = _id;
+      // console.log(this._userName);
   }
+
+  // setUserAvatar(data){}
 }
