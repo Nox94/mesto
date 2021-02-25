@@ -38,14 +38,6 @@ const api = new Api("https://mesto.nomoreparties.co/v1/cohort-20", {
   "Content-Type": "application/json",
 });
 
-//получаем на страницу данные о пользователе с сервера методом класса Api
-api
-  .getUserInfo()
-  .then((res) => res.json())
-  .then((result) => {
-    userInfo.setUserInfo(result);
-    console.log(result);
-  });
 
 // экземпляры классов валидации, запуск валидации на формах
 const editProfileFormValid = new FormValidator(
@@ -73,14 +65,8 @@ const cardsList = new Section(
   ".elements"
 );
 
-api
-  .getTheCards()
-  .then((res) => res.json())
-  .then((result) => {
-    cardsList.setCardsArray(result);
-    cardsList.renderAllElements();
-  });
 
+//экземпляр класса PopupWithForm - попап редактирования профиля
 const popupEditProfile = new PopupWithForm(
   ".popup-profile",
   handleProfileSubmitting
@@ -92,7 +78,7 @@ popupWithImage.setEventListeners();
 const popupAddCard = new PopupWithForm(".popup-cards", handleCardSaving);
 popupAddCard.setEventListeners();
 const popupChangeAvatar = new PopupWithForm('.popup-changeAvatar', handleAvatarSubmitting)
-
+popupChangeAvatar.setEventListeners();
 //создание экземпляра класса userInfo,
 //отсюда приходят данные для инпутов в попап редактирования профиля, из селекторов
 const userInfo = new UserInfo({
@@ -102,8 +88,23 @@ const userInfo = new UserInfo({
 });
 console.log(userInfo);
 
+
+//при нажатии на кнопку "сохранить" у попапа смены аватара
 function handleAvatarSubmitting(){
-  popupChangeAvatar.setInputValues(data);
+  // api.changeUserAvatar();
+  // popupChangeAvatar.setInputValues(data);
+  api
+  .changeUserAvatar(data)
+  .then((res) => {
+    console.log(res);
+    return res.json();
+  })
+  .then((result) => {
+    userInfo.setUserInfo(result);
+    console.log(result);
+    popupChangeAvatar.close();
+  })
+  .catch((err) => console.log(err));
   popupChangeAvatar.close();
 }
 
@@ -158,3 +159,21 @@ profileButtonAdd.addEventListener("click", () => {
   popupAddCard.formReset();
   popupAddCard.open();
 });
+
+//получаем на страницу данные о пользователе с сервера методом класса Api
+api
+  .getUserInfo()
+  .then((res) => res.json())
+  .then((result) => {
+    userInfo.setUserInfo(result);
+    console.log(result);
+  });
+  
+//получение карточек с сервера
+api
+  .getTheCards()
+  .then((res) => res.json())
+  .then((result) => {
+    cardsList.setCardsArray(result);
+    cardsList.renderAllElements();
+  });

@@ -1,3 +1,5 @@
+import { data } from "autoprefixer";
+
 export default class Api {
   constructor(url, headers) {
     this._baseUrl = url;
@@ -12,14 +14,12 @@ export default class Api {
   }
 
   saveUserInfo(data) {
-      console.log(data)
-    // return fetch(this._baseUrl + "/users/me", {
-        return fetch('https://mesto.nomoreparties.co/v1/cohort-20/users/me',{
+    return fetch('https://mesto.nomoreparties.co/v1/cohort-20/users/me', {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
-          name: data.name,
-          about: data.about
+        name: data.name,
+        about: data.about
       }),
     });
   }
@@ -30,12 +30,14 @@ export default class Api {
       headers: this._headers,
     });
   }
-  changeUserAvatar(){
-    return fetch('https://mesto.nomoreparties.co/v1/cohort-20/users/me',{
-        method: "PATCH",
-        headers: this._headers,
-        body: JSON.stringify({
-            name: data.name,
-            about: data.about
-        })
-    }
+  
+  changeUserAvatar(data) {
+    return fetch('https://mesto.nomoreparties.co/v1/cohort-20/users/me/avatar', {
+      method: "PATCH",
+      headers: this._headers,
+      body: JSON.stringify({
+        avatar: data.avatar
+      })
+    })
+  }
+}
