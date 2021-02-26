@@ -2,12 +2,15 @@ export class Card {
   constructor({ data, handlerImg, handlerDel }, cardSelector) {
     this._handler = handlerImg;
     this._handlerDelete = handlerDel;
-    this._handleRemoveButtonClick
-      = this._handleRemoveButtonClick.bind(this);
+    this._handleRemoveButtonClick = this._handleRemoveButtonClick.bind(this);
     this._handleLikeButtonClick = this._handleLikeButtonClick.bind(this)
     this._name = data.name;
     this._link = data.link;
     this._cardSelector = cardSelector;
+    // this._ownerId = owner._id;
+    this._imgId = data.id,
+    this._likes = data.likes,
+    this._userId = data.userId
   }
 
   _getTemplate() {
@@ -22,13 +25,10 @@ export class Card {
     this._element = this._getTemplate();
     this._image = this._element.querySelector(".elements__card-img");
     this._element.querySelector(".elements__card-img").src = this._link;
-    this._element.querySelector(
-      ".elements__card-heading"
-    ).textContent = this._name;
+    this._element.querySelector(".elements__card-heading").textContent = this._name;
     this._likeButton = this._element.querySelector(".elements__like-button");
-    this._deleteButton = this._element.querySelector(
-      ".elements__remove-button"
-    );
+    this._deleteButton = this._element.querySelector(".elements__remove-button");
+    this._likeCounter = this._element.querySelector('.elements__counter');
     this._setEventListeners();
     return this._element;
   }
@@ -41,7 +41,7 @@ export class Card {
   //удаление карточки
   _handleRemoveButtonClick(event) {
     const currentCard = event.target.closest(".elements__card");
-    console.log(this._handlerDelete);
+    // console.log(this._handlerDelete);
     this._handlerDelete(currentCard);
   }
 

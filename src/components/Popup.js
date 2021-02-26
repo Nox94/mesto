@@ -7,9 +7,7 @@ export default class Popup {
     this._handleEscClick = this._handleEscClick.bind(this)
   }
   open() {
-    //содержит публичные методы open и close
     document.addEventListener("keydown", this._handleEscClick);
-    
     this._popup.classList.add("popup_opened");
   }
   close() {
@@ -18,9 +16,7 @@ export default class Popup {
   }
 
   _handleEscClick (evt){
-    //Содержит приватный метод _handleEscClose, который содержит логику закрытия попапа клавишей Esc
     if (evt.key === "Escape") {
-      // const active = evt.currentTarget.querySelector(".popup_opened");
       this.close();
     }
   }

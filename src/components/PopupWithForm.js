@@ -18,7 +18,7 @@ export default class PopupWithForm extends Popup {
   setEventListeners() {
     this._popup.addEventListener("submit", () => // слушатель по сабмиту на текущий попап
       this._handleSubmitting(this.getInputValues())//выполняется переданная ф-ция обработчик
-    );//аргументом ей передается метод получения полей инпутов (?) 
+    );//аргументом ей передается метод получения полей инпутов (?)
     super.setEventListeners(); //родительский метод позволяет закрывать попап по сабмиту
   }
 

@@ -30,7 +30,7 @@ export default class Api {
       headers: this._headers,
     });
   }
-  
+
   changeUserAvatar(data) {
     return fetch('https://mesto.nomoreparties.co/v1/cohort-20/users/me/avatar', {
       method: "PATCH",
@@ -39,5 +39,9 @@ export default class Api {
         avatar: data.avatar
       })
     })
+  }
+
+  removeCard(){
+    
   }
 }
