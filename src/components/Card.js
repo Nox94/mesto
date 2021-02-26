@@ -4,10 +4,10 @@ export class Card {
     this._handlerDelete = handlerDel;
     this._handleRemoveButtonClick = this._handleRemoveButtonClick.bind(this);
     this._handleLikeButtonClick = this._handleLikeButtonClick.bind(this)
+    this._cardSelector = cardSelector;
     this._name = data.name;
     this._link = data.link;
-    this._cardSelector = cardSelector;
-    // this._ownerId = owner._id;
+    this._ownerId = data.ownerId;
     this._imgId = data.id,
     this._likes = data.likes,
     this._userId = data.userId
@@ -38,18 +38,21 @@ export class Card {
     event.target.classList.toggle("elements__like-button_clicked");
   }
 
-  //удаление карточки
+  //хендлер кнопки удаления
   _handleRemoveButtonClick(event) {
-    const currentCard = event.target.closest(".elements__card");
-    // console.log(this._handlerDelete);
-    this._handlerDelete(currentCard);
+    const currentCard = event.target.closest(".elements__card"); //определяет на какой карточке сработало событие
+    console.log(this._handlerDelete); // не определен
+    this._currentCardId = this._imgId;
+    console.log(this._imgId);
+    console.log(this._currentCardId);
+    this._handlerDelete(currentCard, this._currentCardId); //должен быть передан параметр текущей карточки и id карточки
   }
 
   _setEventListeners() {
     //лайк
     this._likeButton.addEventListener("click", this._handleLikeButtonClick);
     //подтверждение удаления карточки
-    this._deleteButton.addEventListener("click", this._handleRemoveButtonClick);
+    this._deleteButton.addEventListener("click", this._handleRemoveButtonClick); //обработчик срабатывает по клику на мусорку
     // открытие попапа картинки
     this._image.addEventListener("click", () => {
       this._handler({ src: this._link, name: this._name });

@@ -1,5 +1,3 @@
-// import { data } from "autoprefixer";
-
 export default class Api {
   constructor(url, headers) {
     this._baseUrl = url;
@@ -14,12 +12,13 @@ export default class Api {
   }
 
   saveUserInfo(data) {
-    return fetch('https://mesto.nomoreparties.co/v1/cohort-20/users/me', {
+    console.log(data);
+    return fetch("https://mesto.nomoreparties.co/v1/cohort-20/users/me", {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
         name: data.name,
-        about: data.about
+        about: data.about,
       }),
     });
   }
@@ -31,17 +30,16 @@ export default class Api {
     });
   }
 
-  changeUserAvatar(data) {
-    return fetch('https://mesto.nomoreparties.co/v1/cohort-20/users/me/avatar', {
+  changeUserAvatar() {
+    return fetch("https://mesto.nomoreparties.co/v1/cohort-20/users/me", {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
-        avatar: data.avatar
-      })
-    })
+        name: data.name,
+        about: data.about,
+      }),
+    });
   }
 
-  removeCard(){
-    
-  }
+  
 }
