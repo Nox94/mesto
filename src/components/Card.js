@@ -11,7 +11,7 @@ export default class Card {
     this._anotherUserId = data.owner_id;
     this._imageId = data._id,
     this._likesArray = data.likes,
-    this._myId = data.myId
+    this._myId = 'cff000b8f0abc422569e915b'
   }
 
 
@@ -32,6 +32,7 @@ export default class Card {
     this._deleteButton = this._element.querySelector(".elements__remove-button");
     this._likeCounter = this._element.querySelector('.elements__counter');
     this._setEventListeners();
+    this.checkCardCreatorId();
     return this._element;
   }
 
@@ -39,6 +40,14 @@ export default class Card {
   _handleLikeButtonClick(event) {
     event.target.classList.toggle("elements__like-button_clicked");
   }
+
+  checkCardCreatorId(){
+    if(this._myId != this._anotherUserId){
+      this._deleteButton.classList.add('invisible');
+      console.log(this._myId != this._anotherUserId);
+    }
+  }
+
 
   //удаление карточки
   _handleRemoveButtonClick(event) {

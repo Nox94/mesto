@@ -13,7 +13,6 @@ const popupCardElemSave = document.querySelector("#popupCardElemSave"); //фор
 const profileButtonEdit = document.querySelector(".profile__button-edit");
 const profileButtonAdd = document.querySelector(".profile__button-add");
 const changeAvatarIcon = document.querySelector('.profile__pencil-icon');
-const trashBeenButton = document.querySelector('.popup__save_confirm');
 
 // данные форм для передачи их классу FormValidator
 const validationConfig = {
@@ -129,7 +128,7 @@ function handleProfileSubmitting(data) {
 }
 
 function createCard(data){
-  console.log(data);
+  // console.log(data);
   const newCard = new Card(
     { data: data, handlerImg: handlePopupPicOpening, handlerDel: handleRemovePopupOpening },
     "#card-template"
@@ -171,16 +170,14 @@ api
   .then((res) => res.json())
   .then((result) => {
     userInfo.setUserInfo(result);
-    console.log(userInfo._id);
-    console.log(userInfo.returnUserId());
+    // console.log(userInfo._id);
+    // console.log(userInfo.returnUserId());
   });
 
 //получение карточек с сервера
 api
   .getTheCards()
-  .then((res) => res.json()).then((res) => {
-    console.log(res);
-  })
+  .then((res) => res.json())
   .then((result) => {
     cardsList.setCardsArray(result);
     cardsList.renderAllElements();
