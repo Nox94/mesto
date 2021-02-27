@@ -60,11 +60,12 @@ export default class Api {
   }
 
   removeCard(id){
-    return fetch(this._baseUrl + `${id}`, {
+    return fetch(this._baseUrl + "/cards" + '/' + `${id}`, {
       method: "DELETE",
       headers: this._headers,
     })
-    .then(onError)
-  }
+    .then((res) => {
+      console.log(res);
+  })}
 
 }

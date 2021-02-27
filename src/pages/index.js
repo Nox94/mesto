@@ -13,6 +13,7 @@ const popupCardElemSave = document.querySelector("#popupCardElemSave"); //фор
 const profileButtonEdit = document.querySelector(".profile__button-edit");
 const profileButtonAdd = document.querySelector(".profile__button-add");
 const changeAvatarIcon = document.querySelector('.profile__pencil-icon');
+const submitOfPopupDelButton = document.querySelector('.popup__save_confirm');
 
 // данные форм для передачи их классу FormValidator
 const validationConfig = {
@@ -57,7 +58,7 @@ const popupAddCard = new PopupWithForm(".popup-cards", handleCardSaving);
 popupAddCard.setEventListeners();
 const popupChangeAvatar = new PopupWithForm('.popup-changeAvatar', handleAvatarSubmitting)
 popupChangeAvatar.setEventListeners();
-const popupToDelete = new DeleteCard('.popup-remove', handleRemovePopupOpening);
+const popupToDelete = new DeleteCard('.popup-remove', handleCardRemoving);
 popupToDelete.setEventListeners();
 
 const cardsList = new Section(
@@ -129,6 +130,27 @@ function createCard(data){
   );
   return newCard.generateCard();
 }
+
+//удаление карточки
+function handleCardRemoving(data) {
+  console.log(data);
+  console.log(data.card);
+  console.log(data.id);
+  api.removeCard(data.id).then((res) => console.log(res))
+  .then(
+    data.card.remove()
+  ).then(
+    popupToDelete.close()
+  )
+}
+
+//открыть попап удаления карточки
+function handleRemovePopupOpening(card, id) {
+  popupToDelete.open({id: id, card: card});
+}
+
+
+
 //ф-ция при нажатии на кнопку "создать" у попапа добавления карточки
 function handleCardSaving(dataSet) {
   data.name = dataSet.name;
@@ -142,15 +164,6 @@ function handleCardSaving(dataSet) {
   popupAddCard.close();
 }
 
-function deleteCard(params) {
-  
-}
-
-//открыть попап удаления карточки
-function handleRemovePopupOpening() {
-  // currentCard.remove();
-  popupToDelete.open();
-}
 
 //открыть попап смены аватара
 changeAvatarIcon.addEventListener('click', () => {
