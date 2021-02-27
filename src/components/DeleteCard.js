@@ -7,5 +7,4 @@ this._handler = handleSubmitting;
   setEventListeners(){
     super.setEventListeners();
   }
-  
 }

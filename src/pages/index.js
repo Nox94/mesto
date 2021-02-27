@@ -1,6 +1,6 @@
 import "./index.css";
 import { FormValidator } from "../components/FormValidator.js";
-import { Card } from "../components/Card.js";
+import Card  from "../components/Card.js";
 import Section from "../components/Section.js";
 import Api from "../components/Api.js";
 import UserInfo from "../components/UserInfo.js";
@@ -31,6 +31,9 @@ const data = {
   likeButton: ".elements__like-button",
   name: "",
   link: "",
+  owner_id: "",
+  _id: "",
+  likes: "",
 };
 
 //получение данных пользователя с сервера
@@ -41,48 +44,14 @@ const api = new Api("https://mesto.nomoreparties.co/v1/cohort-20", {
 
 
 // экземпляры классов валидации, запуск валидации на формах
-const editProfileFormValid = new FormValidator(
-  validationConfig,
-  popupProfileSave
-);
-
+const editProfileFormValid = new FormValidator(validationConfig, popupProfileSave);
 const addCardFormValid = new FormValidator(validationConfig, popupCardElemSave);
-
 editProfileFormValid.enableValidation();
 addCardFormValid.enableValidation();
 
-const cardsList = new Section(
-  {
-    renderer: (cardItem) => {
-      data.name = cardItem.name;
-      data.link = cardItem.link;
-      cardsList.addItem(createCard(data))
-    },
-  },
-  ".elements"
-);
-
-
-
-
-      // const newCard = new Card(
-      //   {
-      //     data: data,
-      //     handlerImg: handlePopupPicOpening,
-      //     handlerDel: handleCardRemoving },
-      //   "#card-template"
-      // );
-      // cardsList.addItem(newCard.generateCard());
-
-
-
-//экземпляр класса PopupWithForm - попап редактирования профиля
-const popupEditProfile = new PopupWithForm(
-  ".popup-profile",
-  handleProfileSubmitting
-);
+//экземпляры классов
+const popupEditProfile = new PopupWithForm(".popup-profile", handleProfileSubmitting);
 popupEditProfile.setEventListeners();
-
 const popupWithImage = new PopupWithImage(".popup-image");
 popupWithImage.setEventListeners();
 const popupAddCard = new PopupWithForm(".popup-cards", handleCardSaving);
@@ -92,6 +61,19 @@ popupChangeAvatar.setEventListeners();
 const popupToDelete = new DeleteCard('.popup-remove', handleRemovePopupOpening);
 popupToDelete.setEventListeners();
 
+const cardsList = new Section(
+  {
+    renderer: (cardItem) => {
+      data.name = cardItem.name;
+      data.link = cardItem.link;
+      data._id = cardItem._id;
+      data.likes = cardItem.likes;
+      data.owner_id = cardItem.owner._id;
+      cardsList.addItem(createCard(data));
+    },
+  },
+  ".elements"
+);
 
 //создание экземпляра класса userInfo,
 //отсюда приходят данные для инпутов в попап редактирования профиля, из селекторов
@@ -158,11 +140,6 @@ function createCard(data){
 function handleCardSaving(dataSet) {
   data.name = dataSet.Heading;
   data.link = dataSet.Link;
-  // const newCard = new Card(
-  //   { data: data, handlerImg: handlePopupPicOpening, handlerDel: handleRemovePopupOpening },
-  //   "#card-template"
-  // );
-  // cardsList.addItem(newCard.generateCard());
   cardsList.addItem(createCard(data))
   popupAddCard.close();
 }
@@ -187,10 +164,6 @@ profileButtonAdd.addEventListener("click", () => {
   popupAddCard.open();
 });
 
-//открыть попап подтверждения удаления
-// trashBeenButton.addEventListener('click', () => {
-//   popupToDelete.open();
-// })
 
 //получаем на страницу данные о пользователе с сервера методом класса Api
 api
@@ -205,7 +178,9 @@ api
 //получение карточек с сервера
 api
   .getTheCards()
-  .then((res) => res.json())
+  .then((res) => res.json()).then((res) => {
+    console.log(res);
+  })
   .then((result) => {
     cardsList.setCardsArray(result);
     cardsList.renderAllElements();

@@ -1,6 +1,6 @@
 export default class Section {
   constructor({renderer}, containerSelector) {
-    // this._array = data,
+    // this._array = data, undefined 
     this._renderer = renderer,
     this._container = document.querySelector(containerSelector)
   }
@@ -18,4 +18,3 @@ export default class Section {
     this._array = cardsArray
   }
 }
-// constructor({ data, renderer }, containerSelector)

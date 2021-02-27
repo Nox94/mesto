@@ -1,17 +1,19 @@
-export class Card {
+export default class Card {
   constructor({ data, handlerImg, handlerDel }, cardSelector) {
     this._handler = handlerImg;
     this._handlerDelete = handlerDel;
+    // console.log(this._handlerDelete);//сюда приходит handleRemovePopupOpening
     this._handleRemoveButtonClick = this._handleRemoveButtonClick.bind(this);
     this._handleLikeButtonClick = this._handleLikeButtonClick.bind(this)
     this._name = data.name;
     this._link = data.link;
     this._cardSelector = cardSelector;
-    // this._ownerId = owner._id;
-    this._imgId = data.id,
-    this._likes = data.likes,
-    this._userId = data.userId
+    this._anotherUserId = data.owner_id;
+    this._imageId = data._id,
+    this._likesArray = data.likes,
+    this._myId = data.myId
   }
+
 
   _getTemplate() {
     const cardElement = document
@@ -41,7 +43,6 @@ export class Card {
   //удаление карточки
   _handleRemoveButtonClick(event) {
     const currentCard = event.target.closest(".elements__card");
-    // console.log(this._handlerDelete);
     this._handlerDelete(currentCard);
   }
 
