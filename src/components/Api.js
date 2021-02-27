@@ -14,12 +14,12 @@ export default class Api {
   }
 
   saveUserInfo(data) {
-    return fetch('https://mesto.nomoreparties.co/v1/cohort-20/users/me', {
+    return fetch("https://mesto.nomoreparties.co/v1/cohort-20/users/me", {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
         name: data.name,
-        about: data.about
+        about: data.about,
       }),
     });
   }
@@ -32,16 +32,39 @@ export default class Api {
   }
 
   changeUserAvatar(data) {
-    return fetch('https://mesto.nomoreparties.co/v1/cohort-20/users/me/avatar', {
-      method: "PATCH",
+    return fetch(
+      "https://mesto.nomoreparties.co/v1/cohort-20/users/me/avatar",
+      {
+        method: "PATCH",
+        headers: this._headers,
+        body: JSON.stringify({
+          avatar: data.avatar,
+        }),
+      }
+    );
+  }
+
+  createNewCard(data) {
+    return fetch(this._baseUrl + "/cards", {
+      method: "POST",
       headers: this._headers,
       body: JSON.stringify({
-        avatar: data.avatar
-      })
+        name: data.name,
+        link: data.link,
+      }),
+    })
+    .then((res) => res.json())
+    .then((res) => {
+      console.log(res);
     })
   }
 
-  removeCard(){
-    
+  removeCard(id){
+    return fetch(this._baseUrl + `${id}`, {
+      method: "DELETE",
+      headers: this._headers,
+    })
+    .then(onError)
   }
+
 }

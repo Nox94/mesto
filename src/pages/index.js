@@ -64,6 +64,7 @@ const cardsList = new Section(
   {
     renderer: (cardItem) => {
       data.name = cardItem.name;
+      // console.log(data.name);
       data.link = cardItem.link;
       data._id = cardItem._id;
       data.likes = cardItem.likes;
@@ -81,13 +82,6 @@ const userInfo = new UserInfo({
   userInfo: ".profile__subheading",
   userAvatar: ".profile__avatar",
 });
-
-
-//обработчик открытия попапа удаления карточки
-function handleRemovePopupOpening() {
-  // currentCard.remove();
-  popupToDelete.open();
-}
 
 //при нажатии на кнопку "сохранить" у попапа смены аватара
 function handleAvatarSubmitting(data) {
@@ -137,10 +131,25 @@ function createCard(data){
 }
 //ф-ция при нажатии на кнопку "создать" у попапа добавления карточки
 function handleCardSaving(dataSet) {
-  data.name = dataSet.Heading;
-  data.link = dataSet.Link;
-  cardsList.addItem(createCard(data))
+  data.name = dataSet.name;
+  // console.log(data.name);
+  data.link = dataSet.link;
+  console.log(dataSet);
+  api.createNewCard(data).then((res) => {
+    cardsList.addItem(createCard(data));
+  });
+  
   popupAddCard.close();
+}
+
+function deleteCard(params) {
+  
+}
+
+//открыть попап удаления карточки
+function handleRemovePopupOpening() {
+  // currentCard.remove();
+  popupToDelete.open();
 }
 
 //открыть попап смены аватара
