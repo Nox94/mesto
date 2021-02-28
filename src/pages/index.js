@@ -1,6 +1,6 @@
 import "./index.css";
 import { FormValidator } from "../components/FormValidator.js";
-import Card  from "../components/Card.js";
+import Card from "../components/Card.js";
 import Section from "../components/Section.js";
 import Api from "../components/Api.js";
 import UserInfo from "../components/UserInfo.js";
@@ -12,7 +12,7 @@ const popupProfileSave = document.querySelector("#popupProfileSave"); //форм
 const popupCardElemSave = document.querySelector("#popupCardElemSave"); //форма добавления новой карточки на страницу
 const profileButtonEdit = document.querySelector(".profile__button-edit");
 const profileButtonAdd = document.querySelector(".profile__button-add");
-const changeAvatarIcon = document.querySelector('.profile__pencil-icon');
+const changeAvatarIcon = document.querySelector(".profile__pencil-icon");
 
 // данные форм для передачи их классу FormValidator
 const validationConfig = {
@@ -41,23 +41,31 @@ const api = new Api("https://mesto.nomoreparties.co/v1/cohort-20", {
   "Content-Type": "application/json",
 });
 
-
 // экземпляры классов валидации, запуск валидации на формах
-const editProfileFormValid = new FormValidator(validationConfig, popupProfileSave);
+const editProfileFormValid = new FormValidator(
+  validationConfig,
+  popupProfileSave
+);
 const addCardFormValid = new FormValidator(validationConfig, popupCardElemSave);
 editProfileFormValid.enableValidation();
 addCardFormValid.enableValidation();
 
 //экземпляры классов
-const popupEditProfile = new PopupWithForm(".popup-profile", handleProfileSubmitting);
+const popupEditProfile = new PopupWithForm(
+  ".popup-profile",
+  handleProfileSubmitting
+);
 popupEditProfile.setEventListeners();
 const popupWithImage = new PopupWithImage(".popup-image");
 popupWithImage.setEventListeners();
 const popupAddCard = new PopupWithForm(".popup-cards", handleCardSaving);
 popupAddCard.setEventListeners();
-const popupChangeAvatar = new PopupWithForm('.popup-changeAvatar', handleAvatarSubmitting)
+const popupChangeAvatar = new PopupWithForm(
+  ".popup-changeAvatar",
+  handleAvatarSubmitting
+);
 popupChangeAvatar.setEventListeners();
-const popupToDelete = new DeleteCard('.popup-remove', handleCardRemoving);
+const popupToDelete = new DeleteCard(".popup-remove", handleCardRemoving);
 popupToDelete.setEventListeners();
 
 const cardsList = new Section(
@@ -69,6 +77,7 @@ const cardsList = new Section(
       data._id = cardItem._id;
       data.likes = cardItem.likes;
       data.owner_id = cardItem.owner._id;
+      data.myId = userInfo.getUserInfo()._id;
       // data.likeCounter = cardItem.likeCounter;
       cardsList.addItem(createCard(data));
       // console.log(cardItem);
@@ -89,18 +98,15 @@ const userInfo = new UserInfo({
 function handleAvatarSubmitting(data) {
   api
     .changeUserAvatar(data)
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-    })
     .then((result) => {
       userInfo.setUserInfo({ avatar: result.avatar });
-      popupChangeAvatar.changeTheSubmitButtonMessage('Сохранение...');
+      popupChangeAvatar.changeTheSubmitButtonMessage("Сохранение...");
       popupChangeAvatar.close();
     })
-    .catch((err) => console.log(err));
-  popupChangeAvatar.close();
+    .catch((err) => console.log(err))
+    .finally(() => {
+      popupChangeAvatar.changeTheSubmitButtonMessage("Сохранить");
+    });
 }
 
 // обработчик ф-ции открытия попапа картинки
@@ -110,25 +116,27 @@ function handlePopupPicOpening(data) {
 
 //ф-ция при нажатии на кнопку "сохранить" у попапа редактирования профиля
 function handleProfileSubmitting(data) {
+  popupEditProfile.changeTheSubmitButtonMessage("Сохранение...");
   api
     .saveUserInfo(data)
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-    })
     .then((result) => {
       userInfo.setUserInfo(result);
-      popupEditProfile.changeTheSubmitButtonMessage('Сохранение...');
       popupEditProfile.close();
     })
-    .catch((err) => console.log(err));
+    .catch((err) => console.log(err))
+    .finally(() => {
+      popupEditProfile.changeTheSubmitButtonMessage("Сохранить");
+    });
 }
 
-function createCard(data){
+function createCard(data) {
   // console.log(data);
   const newCard = new Card(
-    { data: data, handlerImg: handlePopupPicOpening, handlerDel: handleRemovePopupOpening },
+    {
+      data: data,
+      handlerImg: handlePopupPicOpening,
+      handlerDel: handleRemovePopupOpening,
+    },
     "#card-template",
     api
   );
@@ -141,78 +149,84 @@ function handleCardRemoving(data) {
   console.log(data);
   console.log(data.card);
   console.log(data.id);
-  api.removeCard(data.id).then((res) => console.log(res))
-  .then(
-    data.card.remove()
-  ).then(
-    popupToDelete.close()
-  )
+  api.removeCard(data.id).then(() => {
+    data.card.remove();
+    popupToDelete.close();
+  });
 }
 
 //открыть попап удаления карточки
 function handleRemovePopupOpening(card, id) {
-  popupToDelete.open({id: id, card: card});
+  popupToDelete.open({ id: id, card: card });
 }
-
-
 
 //ф-ция при нажатии на кнопку "создать" у попапа добавления карточки
 function handleCardSaving(dataSet) {
+  popupAddCard.changeTheSubmitButtonMessage("Сохранение...");
   data.name = dataSet.name;
   // console.log(data.name);
   data.link = dataSet.link;
   console.log(dataSet);
-  api.createNewCard(data).then((res) => {
-    console.log(res);
-    data.owner_id = res.owner._id;
-    data.likes = res.likes;
-    data._id = res._id;
-    cardsList.addItem(createCard(data));
-  }).catch((err) => console.log(err));
-  popupAddCard.changeTheSubmitButtonMessage('Сохранение...');
-  popupAddCard.close();
+  api
+    .createNewCard(data)
+    .then((res) => {
+      console.log(res);
+      data.owner_id = res.owner._id;
+      data.likes = res.likes;
+      data._id = res._id;
+      data.myId = userInfo.getUserInfo()._id;
+      cardsList.addItem(createCard(data));
+      popupAddCard.close();
+    })
+    .catch((err) => console.log(err))
+    .finally(() => {
+      popupAddCard.changeTheSubmitButtonMessage("Создать");
+    });
 }
 
-
 //открыть попап смены аватара
-changeAvatarIcon.addEventListener('click', () => {
-  popupChangeAvatar.setEventListeners();
+changeAvatarIcon.addEventListener("click", () => {
   popupChangeAvatar.setInputValues(userInfo.getUserInfo());
-  popupChangeAvatar.changeTheSubmitButtonMessage('Сохранить');
   popupChangeAvatar.open();
-})
+});
 
 //открыть попап редактирования профиля
 profileButtonEdit.addEventListener("click", () => {
   editProfileFormValid.hideErrors();
   popupEditProfile.setInputValues(userInfo.getUserInfo());
-  popupEditProfile.changeTheSubmitButtonMessage('Сохранить');
   popupEditProfile.open();
 });
 //открыть попап добавления карточки
 profileButtonAdd.addEventListener("click", () => {
   addCardFormValid.hideErrors();
   popupAddCard.formReset();
-  popupAddCard.changeTheSubmitButtonMessage('Создать');
+  popupAddCard.changeTheSubmitButtonMessage("Создать");
   popupAddCard.open();
 });
 
-
 //получаем на страницу данные о пользователе с сервера методом класса Api
-api
-  .getUserInfo()
-  .then((res) => res.json())
-  .then((result) => {
-    userInfo.setUserInfo(result);
-    // console.log(userInfo._id);
-    // console.log(userInfo.returnUserId());
-  }).catch((err) => console.log(err));
+// api
+//   .getUserInfo()
+//   .then((result) => {
+//     userInfo.setUserInfo(result);
+//     // console.log(userInfo._id);
+//     // console.log(userInfo.returnUserId());
+//   })
+//   .catch((err) => console.log(err));
 
-//получение карточек с сервера
-api
-  .getTheCards()
-  .then((res) => res.json())
-  .then((result) => {
-    cardsList.setCardsArray(result);
-    cardsList.renderAllElements();
-  }).catch((err) => console.log(err));
+// //получение карточек с сервера
+// api
+//   .getTheCards()
+//   .then((result) => {
+//     cardsList.setCardsArray(result);
+//     cardsList.renderAllElements();
+//   })
+//   .catch((err) => console.log(err));
+
+Promise.all([api.getUserInfo(), api.getTheCards()])
+.then(([UserData, initialCards]) =>{
+  userInfo.setUserInfo(UserData);
+  cardsList.setCardsArray(initialCards);
+  cardsList.renderAllElements();
+})
+.catch((err) => console.log(err));

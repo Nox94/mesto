@@ -12,7 +12,8 @@ export default class Card {
     this._anotherUserId = data.owner_id;
     this._imageId = data._id,
     this._likesArray = data.likes,
-    this._myId = 'cff000b8f0abc422569e915b',
+    // this._myId = 'cff000b8f0abc422569e915b',
+    this._myId = data.myId,
     this._api = api
   }
 
@@ -43,7 +44,7 @@ export default class Card {
 
   //лайк
   _handleLikeButtonClick() {
-    
+
     //если найден лайк - то убирай его
     if (this._likesArray.find((item) => item._id == this._myId)) {
       this._api
@@ -83,7 +84,7 @@ export default class Card {
     const currentCard = event.target.closest(".elements__card");
     this._handlerDelete(currentCard, this._imageId);
   }
-  
+
 
   _setEventListeners() {
     //лайк

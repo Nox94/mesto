@@ -1,4 +1,9 @@
-// import { data } from "autoprefixer";
+const handleOriginalResponse = (res) => {
+  if (!res.ok) {
+    return Promise.reject(`Error: ${res.status}`);
+  }
+  return res.json();
+};
 
 export default class Api {
   constructor(url, headers) {
@@ -10,7 +15,7 @@ export default class Api {
     return fetch(this._baseUrl + "/users/me", {
       method: "GET",
       headers: this._headers,
-    });
+    }).then(handleOriginalResponse);
   }
 
   saveUserInfo(data) {
@@ -21,40 +26,34 @@ export default class Api {
         name: data.name,
         about: data.about,
       }),
-    });
+    }).then(handleOriginalResponse);
   }
 
-  addLike(id){
-    return fetch("https://mesto.nomoreparties.co/v1/cohort-20/cards/likes/" + `${id}`, {
-      method: "PUT",
-      headers: this._headers,
-    })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
+  addLike(id) {
+    return fetch(
+      "https://mesto.nomoreparties.co/v1/cohort-20/cards/likes/" + `${id}`,
+      {
+        method: "PUT",
+        headers: this._headers,
       }
-      return Promise.reject('Ошибка:' `${res.status}`);
-  })
+    ).then(handleOriginalResponse);
   }
 
-  removeLike(id){
-    return fetch("https://mesto.nomoreparties.co/v1/cohort-20/cards/likes/" + `${id}`, {
-      method: "DELETE",
-      headers: this._headers,
-    })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
+  removeLike(id) {
+    return fetch(
+      "https://mesto.nomoreparties.co/v1/cohort-20/cards/likes/" + `${id}`,
+      {
+        method: "DELETE",
+        headers: this._headers,
       }
-      return Promise.reject('Ошибка:' `${res.status}`);
-  })
+    ).then(handleOriginalResponse);
   }
 
   getTheCards() {
     return fetch(this._baseUrl + "/cards", {
       method: "GET",
       headers: this._headers,
-    });
+    }).then(handleOriginalResponse);
   }
 
   changeUserAvatar(data) {
@@ -67,7 +66,7 @@ export default class Api {
           avatar: data.avatar,
         }),
       }
-    );
+    ).then(handleOriginalResponse);
   }
 
   createNewCard(data) {
@@ -78,23 +77,13 @@ export default class Api {
         name: data.name,
         link: data.link,
       }),
-    })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject('Ошибка:' `${res.status}`);
-    })}
+    }).then(handleOriginalResponse);
+  }
 
-  removeCard(id){
-    return fetch(this._baseUrl + "/cards" + '/' + `${id}`, {
+  removeCard(id) {
+    return fetch(this._baseUrl + "/cards" + "/" + `${id}`, {
       method: "DELETE",
       headers: this._headers,
-    })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject('Ошибка:' `${res.status}`);
-  })}
+    }).then(handleOriginalResponse);
+  }
 }
