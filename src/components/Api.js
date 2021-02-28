@@ -53,10 +53,7 @@ export default class Api {
         link: data.link,
       }),
     })
-    .then((res) => res.json())
-    .then((res) => {
-      console.log(res);
-    })
+    .then((res) => res.json());
   }
 
   removeCard(id){

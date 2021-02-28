@@ -158,6 +158,10 @@ function handleCardSaving(dataSet) {
   data.link = dataSet.link;
   console.log(dataSet);
   api.createNewCard(data).then((res) => {
+    console.log(res);
+    data.owner_id = res.owner._id;
+    data.likes = res.likes;
+    data._id = res._id;
     cardsList.addItem(createCard(data));
   });
   

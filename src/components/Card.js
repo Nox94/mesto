@@ -7,7 +7,6 @@ export default class Card {
 //  console.log(this._handleRemoveButtonClick);//сюда приходит   _handleRemoveButtonClick
     this._handleLikeButtonClick = this._handleLikeButtonClick.bind(this)
     this._name = data.name;
-    // console.log(this._name);//сюда приходят 
     this._link = data.link;
     this._cardSelector = cardSelector;
     this._anotherUserId = data.owner_id;
@@ -15,7 +14,6 @@ export default class Card {
     this._likesArray = data.likes,
     this._myId = 'cff000b8f0abc422569e915b'
   }
-
 
   _getTemplate() {
     const cardElement = document
@@ -67,6 +65,5 @@ export default class Card {
     this._image.addEventListener("click", () => {
       this._handler({ src: this._link, name: this._name });
     });
-
   }
 }
