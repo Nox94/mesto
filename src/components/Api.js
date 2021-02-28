@@ -24,6 +24,22 @@ export default class Api {
     });
   }
 
+  addLike(id){
+    return fetch(this._baseUrl + "/cards" + '/likes/' + `${id}`, {
+      method: "PUT",
+      headers: this._headers,
+    })
+    .then((res) => res.json());
+  }
+
+  removeLike(id){
+    return fetch(this._baseUrl + "/cards" + '/likes/' + `${id}`, {
+      method: "DELETE",
+      headers: this._headers,
+    })
+    .then((res) => res.json());
+  }
+
   getTheCards() {
     return fetch(this._baseUrl + "/cards", {
       method: "GET",
@@ -64,5 +80,4 @@ export default class Api {
     .then((res) => {
       console.log(res);
   })}
-
 }
