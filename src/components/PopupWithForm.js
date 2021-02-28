@@ -5,6 +5,7 @@ export default class PopupWithForm extends Popup {
     this._form = this._popup.querySelector(".popup__form");
     this._formFields = this._popup.querySelectorAll(".popup__form-row");
     this._handleSubmitting = handleSubmitting;
+    this._submitButton = this._popup.querySelector('.popup__save');
   }
   getInputValues() {  //получение значений инпутов
     this._inputValues = {}; //значение текущих полей = объекту
@@ -28,6 +29,12 @@ export default class PopupWithForm extends Popup {
       // console.log(data);
     });
   }
+
+  
+  changeTheSubmitButtonMessage(string){
+    this._submitButton.textContent = string;
+  }
+
 
   formReset() {
     this._form.reset()

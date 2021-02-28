@@ -13,7 +13,6 @@ const popupCardElemSave = document.querySelector("#popupCardElemSave"); //фор
 const profileButtonEdit = document.querySelector(".profile__button-edit");
 const profileButtonAdd = document.querySelector(".profile__button-add");
 const changeAvatarIcon = document.querySelector('.profile__pencil-icon');
-const submitOfPopupDelButton = document.querySelector('.popup__save_confirm');
 
 // данные форм для передачи их классу FormValidator
 const validationConfig = {
@@ -70,7 +69,9 @@ const cardsList = new Section(
       data._id = cardItem._id;
       data.likes = cardItem.likes;
       data.owner_id = cardItem.owner._id;
+      // data.likeCounter = cardItem.likeCounter;
       cardsList.addItem(createCard(data));
+      // console.log(cardItem);
     },
   },
   ".elements"
@@ -95,6 +96,7 @@ function handleAvatarSubmitting(data) {
     })
     .then((result) => {
       userInfo.setUserInfo({ avatar: result.avatar });
+      popupChangeAvatar.changeTheSubmitButtonMessage('Сохранение...');
       popupChangeAvatar.close();
     })
     .catch((err) => console.log(err));
@@ -117,6 +119,7 @@ function handleProfileSubmitting(data) {
     })
     .then((result) => {
       userInfo.setUserInfo(result);
+      popupEditProfile.changeTheSubmitButtonMessage('Сохранение...');
       popupEditProfile.close();
     })
     .catch((err) => console.log(err));
@@ -126,8 +129,10 @@ function createCard(data){
   // console.log(data);
   const newCard = new Card(
     { data: data, handlerImg: handlePopupPicOpening, handlerDel: handleRemovePopupOpening },
-    "#card-template"
+    "#card-template",
+    api
   );
+
   return newCard.generateCard();
 }
 
@@ -163,8 +168,8 @@ function handleCardSaving(dataSet) {
     data.likes = res.likes;
     data._id = res._id;
     cardsList.addItem(createCard(data));
-  });
-  
+  }).catch((err) => console.log(err));
+  popupAddCard.changeTheSubmitButtonMessage('Сохранение...');
   popupAddCard.close();
 }
 
@@ -173,6 +178,7 @@ function handleCardSaving(dataSet) {
 changeAvatarIcon.addEventListener('click', () => {
   popupChangeAvatar.setEventListeners();
   popupChangeAvatar.setInputValues(userInfo.getUserInfo());
+  popupChangeAvatar.changeTheSubmitButtonMessage('Сохранить');
   popupChangeAvatar.open();
 })
 
@@ -180,12 +186,14 @@ changeAvatarIcon.addEventListener('click', () => {
 profileButtonEdit.addEventListener("click", () => {
   editProfileFormValid.hideErrors();
   popupEditProfile.setInputValues(userInfo.getUserInfo());
+  popupEditProfile.changeTheSubmitButtonMessage('Сохранить');
   popupEditProfile.open();
 });
 //открыть попап добавления карточки
 profileButtonAdd.addEventListener("click", () => {
   addCardFormValid.hideErrors();
   popupAddCard.formReset();
+  popupAddCard.changeTheSubmitButtonMessage('Создать');
   popupAddCard.open();
 });
 
@@ -198,7 +206,7 @@ api
     userInfo.setUserInfo(result);
     // console.log(userInfo._id);
     // console.log(userInfo.returnUserId());
-  });
+  }).catch((err) => console.log(err));
 
 //получение карточек с сервера
 api
@@ -207,4 +215,4 @@ api
   .then((result) => {
     cardsList.setCardsArray(result);
     cardsList.renderAllElements();
-  });
+  }).catch((err) => console.log(err));

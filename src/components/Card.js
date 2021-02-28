@@ -1,5 +1,5 @@
 export default class Card {
-  constructor({ data, handlerImg, handlerDel }, cardSelector) {
+  constructor({ data, handlerImg, handlerDel }, cardSelector, api) {
     this._handler = handlerImg;
     this._handlerDelete = handlerDel;
 // console.log(this._handlerDelete);//сюда приходит handleRemovePopupOpening
@@ -12,7 +12,8 @@ export default class Card {
     this._anotherUserId = data.owner_id;
     this._imageId = data._id,
     this._likesArray = data.likes,
-    this._myId = 'cff000b8f0abc422569e915b'
+    this._myId = 'cff000b8f0abc422569e915b',
+    this._api = api
   }
 
   _getTemplate() {
@@ -31,14 +32,42 @@ export default class Card {
     this._likeButton = this._element.querySelector(".elements__like-button");
     this._deleteButton = this._element.querySelector(".elements__remove-button");
     this._likeCounter = this._element.querySelector('.elements__counter');
+    this._likeCounter.textContent = this._likesArray.length;
+    if (this._likesArray.find((item) => item._id == this._myId)) {
+      this._likeButton.classList.add("elements__like-button_clicked");
+    };
     this._setEventListeners();
     this.checkCardCreatorId();
     return this._element;
   }
 
-  //добавление лайка
-  _handleLikeButtonClick(event) {
-    event.target.classList.toggle("elements__like-button_clicked");
+  //лайк
+  _handleLikeButtonClick() {
+    
+    //если найден лайк - то убирай его
+    if (this._likesArray.find((item) => item._id == this._myId)) {
+      this._api
+      //метод удаления
+        .removeLike(this._imageId)
+        .then((res) => {
+          // console.log(res);
+          // console.log(res.likes.length);
+          this._likeButton.classList.remove("elements__like-button_clicked");
+          this._likesArray = res.likes;
+          this._likeCounter.textContent = res.likes.length;
+        })
+        .catch((err) => console.log(err));
+    } else {
+      this._api
+      //метод добавления
+        .addLike(this._imageId)
+        .then((res) => {
+          this._likeCounter.textContent = res.likes.length;
+          this._likeButton.classList.add("elements__like-button_clicked");
+          this._likesArray = res.likes;
+        })
+        .catch((err) => console.log(err));
+    }
   }
 
 //проверка совпадения по Id

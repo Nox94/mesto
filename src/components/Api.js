@@ -25,19 +25,29 @@ export default class Api {
   }
 
   addLike(id){
-    return fetch(this._baseUrl + "/cards" + '/likes/' + `${id}`, {
+    return fetch("https://mesto.nomoreparties.co/v1/cohort-20/cards/likes/" + `${id}`, {
       method: "PUT",
       headers: this._headers,
     })
-    .then((res) => res.json());
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject('Ошибка:' `${res.status}`);
+  })
   }
 
   removeLike(id){
-    return fetch(this._baseUrl + "/cards" + '/likes/' + `${id}`, {
+    return fetch("https://mesto.nomoreparties.co/v1/cohort-20/cards/likes/" + `${id}`, {
       method: "DELETE",
       headers: this._headers,
     })
-    .then((res) => res.json());
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject('Ошибка:' `${res.status}`);
+  })
   }
 
   getTheCards() {
@@ -69,8 +79,12 @@ export default class Api {
         link: data.link,
       }),
     })
-    .then((res) => res.json());
-  }
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject('Ошибка:' `${res.status}`);
+    })}
 
   removeCard(id){
     return fetch(this._baseUrl + "/cards" + '/' + `${id}`, {
@@ -78,6 +92,9 @@ export default class Api {
       headers: this._headers,
     })
     .then((res) => {
-      console.log(res);
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject('Ошибка:' `${res.status}`);
   })}
 }
